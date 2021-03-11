@@ -6,19 +6,21 @@
         </div>
         <div class="currentgame-overview w-full flex justify-between">
             <div class="currentgame-description-container w-8/12 p-20">
-                <h2 class="currentgame-description-title leading-snug mb-10 text-purple-900 ">{{ game.name }} 's story</h2>
+                <h2 class="currentgame-description-title leading-snug mb-10 text-purple-900 ">{{ game.name }}</h2>
                 <div v-html="game.description" class="currentgame-description p-16 leading-loose text-gray-600 text-lg bg-white bg-opacity-50 mb-20"></div>
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Screenshots of {{ game.name }}</h3>
                 <div class="flex flex-wrap my-12">
-                    <div v-for="(screenshot, index) in screenshots" :key="index" class="w-4/12 p-1">
-                        <a :href="screenshot.image" target="_blank"><img :src="screenshot.image" alt="game's screenshot" class="block rounded-lg"></a>
+                    <div v-for="(screenshot, index) in screenshots" :key="index" class="w-4/12 p-1 currentgame-screenshot-container relative" @hover="">
+                        <a :href="screenshot.image" target="_blank"><img :src="screenshot.image" alt="game's screenshot" class="block rounded-lg currentgame-screenshot"></a>
+                        <img v-show="displayedZoom" src="../assets/icons/zoom.png" class="zoom-screenshot w-6 absolute bottom-5 right-6 text-white opacity-40 font-bold">
                     </div>
                 </div>
             </div>
             <div class="currentgame-infos-container w-3/12">
                 <!-- <iframe :src="game.clip.clip" ></iframe> -->
                 <div class="currentgame-genres">
-                    <div v-for="(genre, index) in game.genres" :key="index">{{ genre.name }}</div>
+                    <div :style="{ backgroundImage: 'url(' + game.background_image_additional + ')' }" class="background-layer opacity-20 bg-center bg-no-repeat bg-cover border-b-">
+                    </div>
                 </div>
             </div>
         </div>
@@ -33,7 +35,9 @@ export default {
     name: "Game",
     data() {
         return {
-            screenshots: []
+            screenshots: [],
+            // bgImgScd: this.game.background_image_additional
+            displayedZoom: true
         }
     },
 
@@ -86,11 +90,17 @@ export default {
     overflow-y: scroll;
     scrollbar-width: thin;
     text-align: justify;
-    text-indent: 50px;
 }
 
 .currentgame-description > p {
     margin-bottom: 40px;
+}
+
+.currentgame-description > p:first-of-type:first-letter {
+  float:left;
+  font-size: 5em;
+  padding: 0.05em 0.05em 0 0;
+  color: #34D399;
 }
 
 .currentgame-infos-container {
@@ -101,5 +111,18 @@ export default {
 .currentgame-gallery {
     font-family: 'Audiowide', cursive;
     font-size: 3rem;
+}
+
+.currentgame-screenshot {
+    transition: 0.5s ease-out;
+}
+
+.currentgame-screenshot:hover {
+    transform: scale(1.15);
+    filter:contrast(1.15)
+}
+
+.background-layer {
+    height: 100vh;
 }
 </style>
