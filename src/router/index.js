@@ -17,12 +17,23 @@ const routes = [
     path: '/game/:id',
     name: 'Game',
     component: () => import(/* webpackChunkName: "game" */ '../views/Game.vue')
+  },
+
+  {
+    path: '/platforms',
+    name : 'Platforms',
+    component: () => import(/* webpackChunkName: "platforms" */ '../views/Platforms.vue')
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return {
+      top: 0,
+     }
+  },
 })
 
 export default router

@@ -7,7 +7,9 @@ export default createStore({
     currentPage: 1,
     changePage: 1,
     // queryGame: ""
-    game: {}
+    game: {},
+
+    platforms: []
   },
 
   mutations: {
@@ -53,6 +55,12 @@ export default createStore({
       axios
       .get(`https://api.rawg.io/api/games/${id}`)
       .then(response => {this.state.game = response.data})
+    },
+
+    getPlatforms() {
+      axios
+      .get(`https://api.rawg.io/api/platforms`)
+      .then(response => {this.state.platforms = response.data});
     }
   },
 
@@ -64,6 +72,10 @@ export default createStore({
     getGame(context, id) {
       context.commit('getGame', id)
     },
+
+    getPlatforms: context => {
+      context.commit('getPlatforms')
+    }
 
     // fetchGames: context => {
     //   context.commit('fetchGames')

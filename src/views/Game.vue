@@ -10,9 +10,9 @@
                 <div v-html="game.description" class="currentgame-description p-16 leading-loose text-gray-600 text-lg bg-white bg-opacity-50 mb-20"></div>
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Screenshots of {{ game.name }}</h3>
                 <div class="flex flex-wrap my-12">
-                    <div v-for="(screenshot, index) in screenshots" :key="index" class="w-4/12 p-1 currentgame-screenshot-container relative" @hover="">
-                        <a :href="screenshot.image" target="_blank"><img :src="screenshot.image" alt="game's screenshot" class="block rounded-lg currentgame-screenshot"></a>
-                        <img v-show="displayedZoom" src="../assets/icons/zoom.png" class="zoom-screenshot w-6 absolute bottom-5 right-6 text-white opacity-40 font-bold">
+                    <div v-for="(screenshot, index) in screenshots" :key="index" class="w-4/12 p-1 currentgame-screenshot-container relative">
+                        <a :href="screenshot.image" target="_blank"><img :src="screenshot.image" alt="game's screenshot" class="block rounded-lg relative currentgame-screenshot"></a>
+                        <img src="../assets/icons/zoom.png" class="zoom-screenshot w-6 absolute bottom-5 right-6 text-white opacity-40 font-bold">
                     </div>
                 </div>
             </div>
@@ -36,8 +36,6 @@ export default {
     data() {
         return {
             screenshots: [],
-            // bgImgScd: this.game.background_image_additional
-            displayedZoom: true
         }
     },
 
@@ -117,9 +115,12 @@ export default {
     transition: 0.5s ease-out;
 }
 
+
+
 .currentgame-screenshot:hover {
     transform: scale(1.15);
-    filter:contrast(1.15)
+    filter:contrast(1.15);
+    z-index: 3000;
 }
 
 .background-layer {
