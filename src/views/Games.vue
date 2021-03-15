@@ -120,6 +120,7 @@ export default {
 <style>
     #all-games {
         font-family: 'Prompt', sans-serif;
+        animation: fadeIn 200ms linear forwards;
     }
 
     h1, h2, h3, h4, h5, h5 {
@@ -181,16 +182,6 @@ export default {
         overflow: hidden;
         transition: 250ms linear;
         animation: fadeIn 500ms linear forwards;
-    }
-
-    @keyframes fadeIn{
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1
-        }
     }
 
     .game-image:hover {

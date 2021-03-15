@@ -4,8 +4,8 @@
             <img :src="game.background_image" alt="image from the game" class="currentgame-image">
             <h1 class="currentgame-title text-white bottom-0 right-4 absolute">{{ game.name }}</h1>
         </div>
-        <div class="currentgame-overview w-full flex justify-between">
-            <div class="currentgame-description-container w-8/12 p-20">
+        <div class="currentgame-overview w-full md:flex justify-between">
+            <article class="currentgame-description-container w-8/12 p-20">
                 <h2 class="currentgame-description-title leading-snug mb-10 text-purple-900 ">{{ game.name }}</h2>
                 <div v-html="game.description" class="currentgame-description p-16 leading-loose text-gray-600 text-lg bg-white bg-opacity-50 mb-20"></div>
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Screenshots of {{ game.name }}</h3>
@@ -15,14 +15,26 @@
                         <img src="../assets/icons/zoom.png" class="zoom-screenshot w-6 absolute bottom-5 right-6 text-white opacity-40 font-bold">
                     </div>
                 </div>
-            </div>
-            <div class="currentgame-infos-container w-3/12">
-                <!-- <iframe :src="game.clip.clip" ></iframe> -->
-                <div class="currentgame-genres">
-                    <div :style="{ backgroundImage: 'url(' + game.background_image_additional + ')' }" class="background-layer opacity-20 bg-center bg-no-repeat bg-cover border-b-">
+            </article>
+            <aside class="currentgame-infos-container w-3/12 text-white">
+                <h4 class="text-3xl px-8 py-6 text-right">Informations</h4>
+                <!-- <iframe :src="game.clip.clip" width="100%" height="17%" allow="fullscreen" frameborder="0"></iframe> -->
+                <div class="currentgame-infos">
+                    <div :style="{ backgroundImage: 'url(' + game.background_image_additional + ')' }" class="background-layer opacity-20 bg-center bg-no-repeat bg-cover">
+                    </div>
+                    <div class="currentgame-rating p-8">
+                        <h5 class=" text-xl">Rating</h5>
+                        <p>{{ game.rating }} / 5</p>
+                        <div class="currentgame-ratingbar p-4 w-full" >
+                            <div v-for="(rating, index) in game.ratings" :key="index" class="w-full flex items-center mb-4">
+                                <div>{{ rating.count }}</div>
+                                <div :style="{ backgroundColor: 'red', width: rating.percent + '%' }" class="p-3 rounded-md"></div>
+                                <div>{{ rating.title }}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </aside>
         </div>
 
   </section>
@@ -35,7 +47,7 @@ export default {
     name: "Game",
     data() {
         return {
-            screenshots: [],
+            screenshots: []
         }
     },
 
@@ -58,6 +70,19 @@ export default {
 </script>
 
 <style>
+#currentgame {
+    animation: fadeIn 500ms linear forwards;
+}
+
+@keyframes fadeIn{
+  from {
+    opacity: 0;
+     }
+ to {
+    opacity: 1
+  }
+}
+
 .currentgame-header {
     height: 70vh;
     overflow: hidden;
@@ -75,6 +100,20 @@ export default {
     font-family: 'Audiowide', cursive;
     font-size: 6.5rem;
     mix-blend-mode: soft-light;
+    animation: slideLeftFadeIn 1.2s ease-out;
+}
+
+@keyframes slideLeftFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-30%);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(0%);
+    }
 }
 
 .currentgame-description-title {
@@ -114,8 +153,6 @@ export default {
 .currentgame-screenshot {
     transition: 0.5s ease-out;
 }
-
-
 
 .currentgame-screenshot:hover {
     transform: scale(1.15);
