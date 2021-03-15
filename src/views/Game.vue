@@ -15,6 +15,30 @@
                         <img src="../assets/icons/zoom.png" class="zoom-screenshot w-6 absolute bottom-5 right-6 text-white opacity-40 font-bold">
                     </div>
                 </div>
+                <h3 class="currentgame-gallery text-purple-900 leading-tight">Similar games</h3>
+                <div class="flex flex-wrap my-12">
+                    <div v-for="(suggestion, index) in suggestions" :key="index" class="w-64 p-1 currentgame-suggestions-container relative">
+                        <a :href="suggestion.background_image" target="_blank"><img :src="suggestion.background_image" alt="game's suggestions" class="block rounded-lg relative currentgame-suggestions" @mouseenter="suggestionTitle = true" @mouseleave="suggestionTitle = false"></a>
+                        <div v-show="suggestionTitle" class="suggestion-name absolute top-1/3 w-52 text-center text-lg text-white font-bold opacity-80">{{ suggestion.name }}</div>
+                    </div>
+                </div>
+                <h3 class="currentgame-creators-title text-purple-900 leading-tight">Creators</h3>
+                <div class="currentgame-creators-container py-20 w-full">
+                        <ul class="currentgame-creators w-full flex justify-between">
+                            <li v-show="creator.image != null" class="currentgame-creator w-64 bg-white rounded-lg py-9 px-4 flex flex-col " v-for="(creator, index) in creators" :key="index">
+                                <img :src="creator.image" alt="" class="rounded-full w-28 h-28 block creator-img self-end">
+                                <div>
+                                    <p class="text-center w-full">{{ creator.name }}</p>
+                                    <div v-for="(position, index) in creator.positions" :key="index">
+                                        <span class="text-center">{{ position.name }}</span>
+                                    </div>
+                                    <div v-for="(game, index) in creator.games" :key="index">
+                                        <p class="text-sm">{{ game.name }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
             </article>
             <aside class="currentgame-infos-container w-3/12 text-white">
                 <!-- <iframe :src="game.clip.clip" width="100%" height="17%" allow="fullscreen" frameborder="0"></iframe> -->
@@ -29,7 +53,7 @@
                             <div v-for="(rating, index) in game.ratings" :key="index" class="w-full mb-4 my-6">
                                 <div class="rating-label">{{ rating.title.charAt(0).toUpperCase() + rating.title.slice(1)}} :</div>
                                 <div class="flex flex-row-reverse items-center mt-3">
-                                    <div :style="{ width: rating.percent + '%', animation: 'changeWidth 1s linear' }" class="p-4 rounded-md ml-3" :class="`${rating.title}`"></div>
+                                    <div :style="{ width: rating.percent + '%', animation: 'changeWidth 1.25s linear' }" class="p-4 rounded-md ml-3" :class="`${rating.title}`"></div>
                                     <div class="ratings-counts">{{ rating.count }}</div>
                                 </div>
                             </div>
@@ -46,6 +70,7 @@
                                 </li>
                              </ul>
                          </div>
+                         <hr class="w-10/12 m-auto">
                          <div class="currentgame-genres-container px-8 py-4 w-full">
                             <h5 class="currentgame-genres-title text-right">Genres</h5>
                              <ul class="currentgame-genres flex flex-row-reverse flex-wrap w-full text-center">
@@ -54,6 +79,7 @@
                                 </li>
                              </ul>
                          </div>
+                         <hr class="w-10/12 m-auto">
                          <div class="currentgame-developers-container px-8 py-4 w-full">
                             <h5 class="currentgame-developers-title text-right">Developers</h5>
                              <ul class="currentgame-developers flex flex-row-reverse flex-wrap w-full text-center">
@@ -62,6 +88,7 @@
                                 </li>
                              </ul>
                          </div>
+                         <hr class="w-10/12 m-auto">
                          <div class="currentgame-publishers-container px-8 py-4  w-full">
                             <h5 class="currentgame-publishers-title text-right">Publishers</h5>
                              <ul class="currentgame-publishers flex flex-row-reverse flex-wrap w-full text-center">
@@ -70,6 +97,7 @@
                                 </li>
                              </ul>
                          </div>
+                         <hr class="w-10/12 m-auto">
                          <div class="currentgame-tags-container px-8 py-4 w-full">
                             <h5 class="currentgame-tags-title text-right">Tags</h5>
                              <ul class="currentgame-tags flex flex-wrap flex-row-reverse">
@@ -91,7 +119,10 @@ export default {
     name: "Game",
     data() {
         return {
-
+            screenshots: [],
+            suggestions: [],
+            suggestionTitle: false,
+            creators: []
         }
     },
 
@@ -107,9 +138,25 @@ export default {
         axios
         .get(`https://api.rawg.io/api/games/${this.$route.params.id}/screenshots`)
         .then(response => {this.screenshots = response.data.results})
-        console.log(this.screenshots)
+        console.log(this.screenshots);
+
+        axios
+        .get(`https://api.rawg.io/api/games/${this.$route.params.id}/suggested`)
+        .then(response => {this.suggestions = response.data.results})
+        console.log(this.suggestions);
+
+        axios
+        .get(`https://api.rawg.io/api/games/${this.$route.params.id}/development-team`)
+        .then(response => {this.creators = response.data.results})
+        console.log(this.creators);
 
     },
+
+    methods: {
+        showSuggestionTitle() {
+            this.suggestionTitle = true
+        }
+    }
 }
 </script>
 
@@ -202,6 +249,30 @@ export default {
     transform: scale(1.15);
     filter:contrast(1.15);
     z-index: 3000;
+    filter: drop-shadow(7px 7px 10px #050505);
+}
+
+.suggestion-name {
+    font-family: "Audiowide", cursive;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.currentgame-suggestions {
+    transition: 0.5s ease-out;
+}
+
+.currentgame-suggestions:hover {
+    filter: contrast(120%) brightness(70%) blur(0.5px);
+}
+
+.currentgame-creators-title {
+    font-family: "Audiowide", cursive;
+    font-size: 3rem;
+}
+
+.currentgame-creator {
+    filter: drop-shadow(7px 7px 10px #05050577);
 }
 
 .background-layer {
@@ -264,6 +335,5 @@ export default {
 
 .currentgame-platforms-title, .currentgame-genres-title, .currentgame-developers-title, .currentgame-publishers-title, .currentgame-tags-title {
     font-family: "Audiowide", cursive;
-    
 }
 </style>
