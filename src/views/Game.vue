@@ -37,7 +37,39 @@
                     </div>
 
                      <div :style="{ backgroundImage: 'url(' + game.background_image_additional + ')' }" class="background-layer bg-center bg-no-repeat bg-cover relative">
-                         <h4 class="currentgame-infos-title text-4xl px-8 py-6 text-right">Informations</h4>
+                        <h4 class="currentgame-infos-title text-4xl py-6 px-8 text-right">Informations</h4>
+                         <div class="currentgame-platforms-container px-8 w-full">
+                            <h5 class="currentgame-platforms-title text-right">Platforms</h5>
+                             <ul class="currentgame-platforms flex flex-row-reverse flex-wrap w-full text-center">
+                                 <li class="currentgame-platform  my-3 bg-gray-300 rounded-full p-2 px-4 text-xs bg-opacity-30 font-bold self-center ml-2" v-for="(platform, index) in game.platforms" :key="index">
+                                     {{ platform.platform.name }}
+                                </li>
+                             </ul>
+                         </div>
+                         <div class="currentgame-genres-container p-8 w-full">
+                            <h5 class="currentgame-genres-title text-right">Genres</h5>
+                             <ul class="currentgame-genres flex flex-row-reverse flex-wrap w-full text-center">
+                                 <li class="currentgame-platform  my-3 bg-gray-300 rounded-full p-2 px-4 text-xs bg-opacity-30 font-bold self-center ml-2" v-for="(genre, index) in game.genres" :key="index">
+                                     {{ genre.name }}
+                                </li>
+                             </ul>
+                         </div>
+                         <div class="currentgame-developers-container p-8 w-full">
+                            <h5 class="currentgame-developers-title text-right">Developers</h5>
+                             <ul class="currentgame-developers flex flex-row-reverse flex-wrap w-full text-center">
+                                 <li class="currentgame-platform  my-3 bg-gray-300 rounded-full p-2 px-4 text-xs bg-opacity-30 font-bold self-center ml-2" v-for="(developer, index) in game.developers" :key="index">
+                                     {{ developer.name }}
+                                </li>
+                             </ul>
+                         </div>
+                         <div class="currentgame-publishers-container p-8 w-full">
+                            <h5 class="currentgame-publishers-title text-right">Publishers</h5>
+                             <ul class="currentgame-publishers flex flex-row-reverse flex-wrap w-full text-center">
+                                 <li class="currentgame-platform  my-3 bg-gray-300 rounded-full p-2 px-4 text-xs bg-opacity-30 font-bold self-center ml-2" v-for="(publisher, index) in game.publishers" :key="index">
+                                     {{ publisher.name }}
+                                </li>
+                             </ul>
+                         </div>
                     </div>
                 </div>
             </aside>
@@ -53,7 +85,7 @@ export default {
     name: "Game",
     data() {
         return {
-            screenshots: []
+
         }
     },
 
@@ -167,9 +199,9 @@ export default {
 }
 
 .background-layer {
-    height: 100vh;
+    height: 130vh;
     background-color: rgba(23, 7, 37, 0.644);
-    background-blend-mode: darken
+    background-blend-mode: darken;
 }
 
 .currentgame-infos-title {
@@ -222,5 +254,10 @@ export default {
     from {
         width: 0%;
     }
+}
+
+.currentgame-platforms-title, .currentgame-genres-title, .currentgame-developers-title, .currentgame-publishers-title {
+    font-family: "Audiowide", cursive;
+    
 }
 </style>
