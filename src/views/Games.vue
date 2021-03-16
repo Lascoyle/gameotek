@@ -31,7 +31,7 @@
                     </div>
                 </router-link>
                 <div class="game-textual card-header bg-gray-200 rounded-b-lg">
-                    <header class="card-header flex items-baseline bg-gray-300 p-4">
+                    <header class="card-header flex items-baseline justify-between bg-gray-300 p-4">
                         <router-link :to="{ name: 'Game', params: {id: game.id} }"><h2 class="game-name text-2xl font-black w-10/12 mb-5">{{ game.name }}</h2></router-link>
                         <p class="game-rating"><span class="text-purple-500 font-bold text-xl">{{ Math.round(game.rating) }}</span><span class="text-green-400 font-black text-3xl">/{{ game.rating_top }}</span></p>
                     </header>
@@ -79,7 +79,12 @@ export default {
         this.$store.dispatch('getGames');
         axios
             .get(`https://api.rawg.io/api/platforms`)
-            .then(response => {this.platforms = response.data});
+            .then(response => {this.platforms = response.data})
+            .catch(error => console.log(error));
+    },
+
+    updated() {
+
     },
 
     methods: {

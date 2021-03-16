@@ -25,13 +25,16 @@
                 <h3 class="currentgame-creators-title text-purple-900 leading-tight">Creators</h3>
                 <div class="currentgame-creators-container py-20 w-full">
                         <ul class="currentgame-creators w-full">
-                            <li v-show="creator.image != null" :style="{ backgroundImage: 'url(' + creator.image_background + ')'}" class="currentgame-creator w-2/3 bg-center bg-cover bg-no-repeat rounded-lg py-9 px-8 flex mb-4 relative" v-for="(creator, index) in creators" :key="index">
-                                <img :src="creator.image" alt="" class="rounded-full w-28 h-28 block creator-img self-center">
-                                <div class="ml-8 flex flex-col justify-between">
-                                    <div class="flex items-center">
-                                        <p class="creator-name w-full text-white text-2xl pb-2">{{ creator.name }}</p>
-                                        <img src="../assets/icons/game.png" alt="" class="creator-games-icon w-5 h-5">
-                                        <p class="creator-games-count ml-1 text-white">{{ creator.games_count }}</p>
+                            <li :style="{ backgroundImage: 'url(' + creator.image_background + ')'}" class="currentgame-creator w-2/3 bg-center bg-cover bg-no-repeat rounded-lg py-9 px-8 flex mb-4 relative" v-for="(creator, index) in creators" :key="index">
+                                <img v-if="creator.image != null" :src="creator.image" alt="" class="rounded-full w-28 h-28 block creator-img self-center">
+                                <img v-else src="../assets/icons/unknown.svg" alt="" class="rounded-full w-28 h-28 block creator-img self-center">
+                                <div class="ml-8 flex w-full flex-col justify-between">
+                                    <div class="flex items-center w-full justify-between">
+                                        <p class="creator-name text-white text-2xl pb-2">{{ creator.name }}</p>
+                                        <div class="flex">
+                                            <img src="../assets/icons/game.png" alt="" class="creator-games-icon w-5 h-5">
+                                            <p class="creator-games-count ml-1 text-white">{{ creator.games_count }}</p>
+                                        </div>
                                     </div>
                                     <hr>
                                     <div class="flex flex-col justify-between h-full">
@@ -40,7 +43,7 @@
                                         </div>
                                     </div>
                                     <div class="w-full flex flex-wrap h-2/4">
-                                        <p class="text-xs mr-4 text-white font-medium leading-normal underline" v-for="(game, index) in creator.games" :key="index">{{ game.name }}</p>
+                                        <di class="text-xs mr-4 text-white font-medium leading-normal underline" v-for="(game, index) in creator.games" :key="index">{{ game.name }}</di>
                                     </div>
                                 </div>
                             </li>
@@ -60,7 +63,7 @@
                             <div v-for="(rating, index) in game.ratings" :key="index" class="w-full mb-4 my-6">
                                 <div class="rating-label">{{ rating.title.charAt(0).toUpperCase() + rating.title.slice(1)}} :</div>
                                 <div class="flex flex-row-reverse items-center mt-3">
-                                    <div :style="{ width: rating.percent + '%', animation: 'changeWidth 1.25s linear' }" class="p-4 rounded-md ml-3" :class="`${rating.title}`"></div>
+                                    <div :style="{ width: rating.percent + '%', animation: 'changeWidth 1.25s linear' }" class="h-6 rounded-md ml-3" :class="`${rating.title}`"></div>
                                     <div class="ratings-counts">{{ rating.count }}</div>
                                 </div>
                             </div>
@@ -145,16 +148,19 @@ export default {
         axios
         .get(`https://api.rawg.io/api/games/${this.$route.params.id}/screenshots`)
         .then(response => {this.screenshots = response.data.results})
+        .catch(error => console.log(error));
         console.log(this.screenshots);
 
         axios
         .get(`https://api.rawg.io/api/games/${this.$route.params.id}/suggested`)
         .then(response => {this.suggestions = response.data.results})
+        .catch(error => console.log(error));
         console.log(this.suggestions);
 
         axios
         .get(`https://api.rawg.io/api/games/${this.$route.params.id}/development-team`)
         .then(response => {this.creators = response.data.results})
+        .catch(error => console.log(error));
         console.log(this.creators);
 
     },
