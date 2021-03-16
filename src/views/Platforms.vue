@@ -17,7 +17,7 @@
                       <div>{{ platform.description }}</div>
                       <ul>
                           <li v-for="(game, index) in platform.games" :key="index">
-                              {{ game.name }}
+                              <router-link :to="{ name: 'Game', params: { id: game.id } }">{{ game.name }}</router-link>
                           </li>
                       </ul>
                   </div>
