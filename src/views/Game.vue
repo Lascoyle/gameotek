@@ -24,16 +24,23 @@
                 </div>
                 <h3 class="currentgame-creators-title text-purple-900 leading-tight">Creators</h3>
                 <div class="currentgame-creators-container py-20 w-full">
-                        <ul class="currentgame-creators w-full flex justify-between">
-                            <li v-show="creator.image != null" class="currentgame-creator w-64 bg-white rounded-lg py-9 px-4 flex flex-col " v-for="(creator, index) in creators" :key="index">
-                                <img :src="creator.image" alt="" class="rounded-full w-28 h-28 block creator-img self-end">
-                                <div>
-                                    <p class="text-center w-full">{{ creator.name }}</p>
-                                    <div v-for="(position, index) in creator.positions" :key="index">
-                                        <span class="text-center">{{ position.name }}</span>
+                        <ul class="currentgame-creators w-full">
+                            <li v-show="creator.image != null" :style="{ backgroundImage: 'url(' + creator.image_background + ')'}" class="currentgame-creator w-2/3 bg-center bg-cover bg-no-repeat rounded-lg py-9 px-8 flex mb-4 relative" v-for="(creator, index) in creators" :key="index">
+                                <img :src="creator.image" alt="" class="rounded-full w-28 h-28 block creator-img self-center">
+                                <div class="ml-8 flex flex-col justify-between">
+                                    <div class="flex items-center">
+                                        <p class="creator-name w-full text-white text-2xl pb-2">{{ creator.name }}</p>
+                                        <img src="../assets/icons/game.png" alt="" class="creator-games-icon w-5 h-5">
+                                        <p class="creator-games-count ml-1 text-white">{{ creator.games_count }}</p>
                                     </div>
-                                    <div v-for="(game, index) in creator.games" :key="index">
-                                        <p class="text-sm">{{ game.name }}</p>
+                                    <hr>
+                                    <div class="flex flex-col justify-between h-full">
+                                        <div class="w-full flex">
+                                            <span class="text-center text-md font-semibold text-white mr-3" v-for="(position, index) in creator.positions" :key="index">{{ position.name.charAt(0).toUpperCase() + position.name.slice(1) }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full flex flex-wrap h-2/4">
+                                        <p class="text-xs mr-4 text-white font-medium leading-normal underline" v-for="(game, index) in creator.games" :key="index">{{ game.name }}</p>
                                     </div>
                                 </div>
                             </li>
@@ -101,7 +108,7 @@
                          <div class="currentgame-tags-container px-8 py-4 w-full">
                             <h5 class="currentgame-tags-title text-right">Tags</h5>
                              <ul class="currentgame-tags flex flex-wrap flex-row-reverse">
-                                 <li class="currentgame-tag text-sm leading-loose ml-3 underline" v-for="(tag, index) in game.tags" :key="index"> {{ tag.name }}</li>
+                                 <li class="currentgame-tag text-sm leading-loose ml-3 underline" v-for="(tag, index) in game.tags" :key="index"> {{ tag.name.charAt(0).toUpperCase() + tag.name.slice(1) }}</li>
                              </ul>
                          </div>
                     </div>
@@ -186,7 +193,7 @@ export default {
 }
 
 .currentgame-title {
-    box-shadow: 20px 20px  (rgba(255, 0, 0, 0.699));
+
     position: absolute;
     font-family: 'Audiowide', cursive;
     font-size: 6.5rem;
@@ -272,12 +279,29 @@ export default {
 }
 
 .currentgame-creator {
-    filter: drop-shadow(7px 7px 10px #05050577);
+    background-color: #18072285;
+    background-blend-mode: darken;
+    transition: 300ms linear;
+}
+
+.currentgame-creator:hover {
+    cursor: pointer;
+    filter: drop-shadow(5px 5px 4px #05050577);
+    background-blend-mode: soft-light;
+    transform: scale(105%);
+}
+
+.creator-name {
+    font-family: "Audiowide", cursive;
+}
+
+.creator-games-count {
+    font-family: "Audiowide", cursive;
 }
 
 .background-layer {
     height: 130vh;
-    background-color: rgba(23, 7, 37, 0.644);
+    background-color: #170725a4;
     background-blend-mode: darken;
 }
 
