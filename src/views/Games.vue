@@ -3,14 +3,15 @@
         <h1 class="games-title text-4xl lg:pl-16 font-black mb-10 text-purple-900 lg:mt-10">All Games</h1>
         <div  class="previous-games hover:text-purple-600 text-gray-300" @click="callPreviousPage()">❰</div>
         <div class="next-games hover:text-purple-600 text-gray-300" @click="callNextPage()">❱</div>
-        <div class="order-elmts flex justify-end w-full mr-20 my-10">
-            <div class="search ml-4">
-                <input class="text-gray-600 rounded-full border-2 focus:border-purple-600 p-2" type="text" placeholder="Search a game..." :value="queryGame" @keyup.enter="fetchGames">
+        <div class="order-elmts flex justify-end items-center w-full mr-20 my-10">
+            <div class="search ml-4 mr-12">
+                <input class="text-gray-600 rounded-full rounded-r-none border-r-0 border-4 focus:outline-none focus:bg-gray-900 focus:text-white transition duration-75 ease-linear p-2" type="text" placeholder="Search a game..." :value="queryGame" @keyup.enter="fetchGames">
+                <img src="../assets/icons/search.svg" alt="" class="h-12 inline-block bg-white absolute border-4 border-l-0 rounded-full rounded-l-none p-2">
             </div>
-            <div @click="sortByName()" class="order-elmt rounded-full bg-gray-900 font-bold p-2 px-4 ml-4">
+            <div @click="sortByName()" class="order-elmt rounded-full transition duration-150 cursor-pointer hover:bg-gray-400 ease-linear bg-gray-900 font-bold p-3 px-4 ml-4">
                 Order by name
             </div>
-            <div class=" order-elmt rounded-full bg-gray-900 font-bold mr-20 ml-4 p-2 px-4" @click="fetchPlatforms()">
+            <div class=" order-elmt rounded-full transition duration-150 ease-linear cursor-pointer hover:bg-gray-400 bg-gray-900 font-bold mr-20 ml-4 p-3 px-4" @click="fetchPlatforms()">
                 <p>Platforms</p>
             </div>
         </div>
@@ -27,7 +28,8 @@
             <li class="game card w-12/12 sm:w-6/12 lg:w-4/12 xl:w-3/12 p-4" v-for="(game, index) in games.results" :key="index">
                 <router-link :to="{ name: 'Game', params: { id: game.id } }">
                     <div class="game-image-container rounded-t-lg">
-                        <img :src="game.background_image" alt="" class="game-image block">
+                        <img v-if="game.background_image != null" :src="game.background_image" alt="" class="game-image block">
+                        <img v-else src="../assets/images/no-image.png" alt="" class="game-image block">
                     </div>
                 </router-link>
                 <div class="game-textual card-header bg-gray-200 rounded-b-lg">
@@ -139,11 +141,6 @@ export default {
 
     .order-elmt {
         width: unset;
-    }
-
-    .order-elmt:hover {
-        cursor: pointer;
-        filter: brightness(300%);
     }
 
     .platforms-list-container {

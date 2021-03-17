@@ -12,8 +12,9 @@
                 <div class="flex flex-wrap my-12">
                     <div v-for="(screenshot, index) in screenshots" :key="index" class="w-4/12 p-1 currentgame-screenshot-container relative">
                         <a :href="screenshot.image" target="_blank"><img :src="screenshot.image" alt="game's screenshot" class="block rounded-lg relative currentgame-screenshot"></a>
-                        <img src="../assets/icons/zoom.png" class="zoom-screenshot w-6 absolute bottom-5 right-6 text-white opacity-40 font-bold">
+                        <img src="../assets/icons/zoom.svg" class="zoom-screenshot w-9 absolute bottom-3 right-4 text-white opacity-40 font-bold">
                     </div>
+                    <!-- <iframe :src="game.clip.clip" width="30%" allow="fullscreen" frameborder="0" class="ml-2"></iframe> -->
                 </div>
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Similar games</h3>
                 <div class="flex flex-wrap my-12">
@@ -28,7 +29,7 @@
                             <li :style="{ backgroundImage: 'url(' + creator.image_background + ')'}" class="currentgame-creator w-2/3 bg-center bg-cover bg-no-repeat rounded-lg py-9 px-8 flex mb-4 relative" v-for="(creator, index) in creators" :key="index">
                                 <img v-if="creator.image != null" :src="creator.image" alt="" class="rounded-full w-28 h-28 block creator-img self-center">
                                 <img v-else src="../assets/icons/unknown.svg" alt="" class="rounded-full w-28 h-28 block creator-img self-center">
-                                <div class="ml-8 flex w-full flex-col justify-between">
+                                <div class="ml-8 flex w-9/12 flex-col justify-between">
                                     <div class="flex items-center w-full justify-between">
                                         <p class="creator-name text-white text-2xl pb-2">{{ creator.name }}</p>
                                         <div class="flex">
@@ -51,7 +52,6 @@
                     </div>
             </article>
             <aside class="currentgame-infos-container w-3/12 text-white">
-                <!-- <iframe :src="game.clip.clip" width="100%" height="17%" allow="fullscreen" frameborder="0"></iframe> -->
                 <div class="currentgame-infos">
                     <div class="currentgame-rating-container p-8 py-20">
                         <h5 class="currentgame-rating-title text-4xl text-right">Ratings</h5>
@@ -114,6 +114,10 @@
                                  <li class="currentgame-tag text-sm leading-loose ml-3 underline" v-for="(tag, index) in game.tags" :key="index"> {{ tag.name.charAt(0).toUpperCase() + tag.name.slice(1) }}</li>
                              </ul>
                          </div>
+                         <div v-if="game.website != null" class="currentgame-website-container px-8 py-4 w-full">
+                            <h6 class="currentgame-website-title text-right">Website</h6>
+                            <a :href="game.website"><p class="currentgame-website text-right w-full hover:underline">{{ game.website }}</p></a>
+                         </div>
                     </div>
                 </div>
             </aside>
@@ -132,7 +136,8 @@ export default {
             screenshots: [],
             suggestions: [],
             suggestionTitle: false,
-            creators: []
+            creators: [],
+            gameSeries: []
         }
     },
 
@@ -149,20 +154,21 @@ export default {
         .get(`https://api.rawg.io/api/games/${this.$route.params.id}/screenshots`)
         .then(response => {this.screenshots = response.data.results})
         .catch(error => console.log(error));
-        console.log(this.screenshots);
 
         axios
         .get(`https://api.rawg.io/api/games/${this.$route.params.id}/suggested`)
         .then(response => {this.suggestions = response.data.results})
         .catch(error => console.log(error));
-        console.log(this.suggestions);
 
         axios
         .get(`https://api.rawg.io/api/games/${this.$route.params.id}/development-team`)
         .then(response => {this.creators = response.data.results})
         .catch(error => console.log(error));
-        console.log(this.creators);
 
+        axios
+        .get(`https://api.rawg.io/api/games/${this.$route.params.id}/game-series`)
+        .then(response => {this.gameSeries = response.data.results})
+        .catch(error => console.log(error));
     },
 
     methods: {
@@ -363,7 +369,7 @@ export default {
     }
 }
 
-.currentgame-platforms-title, .currentgame-genres-title, .currentgame-developers-title, .currentgame-publishers-title, .currentgame-tags-title {
+.currentgame-platforms-title, .currentgame-genres-title, .currentgame-developers-title, .currentgame-publishers-title, .currentgame-tags-title, .currentgame-website-title {
     font-family: "Audiowide", cursive;
 }
 </style>
