@@ -19,7 +19,7 @@ export default {
     font-family: 'Audiowide', cursive;
 }
 
-.nav-link:focus{
+.router-link-active {
   border-bottom: #4c1d95 4px solid
 }
 </style>

@@ -43,7 +43,7 @@
                                         </div>
                                     </div>
                                     <div class="w-full flex flex-wrap h-2/4">
-                                        <di class="text-xs mr-4 text-white font-medium leading-normal underline" v-for="(game, index) in creator.games" :key="index">{{ game.name }}</di>
+                                        <div class="text-xs mr-4 text-white font-medium leading-normal underline" v-for="(game, index) in creator.games" :key="index">{{ game.name }}</div>
                                     </div>
                                 </div>
                             </li>
@@ -306,7 +306,7 @@ export default {
 }
 
 .background-layer {
-    height: 130vh;
+    /* height: 130vh; */
     background-color: #170725a4;
     background-blend-mode: darken;
 }

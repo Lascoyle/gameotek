@@ -6,17 +6,15 @@
           <li class="platform w-6/12 p-8" v-for="(platform, index) in platforms.results" :key="index">
             <div class="platform-container relative rounded-lg">
                 <img :src="platform.image_background" alt="" class="block w-full absolte opacity-20 rounded-lg h-96 scale-50 overflow-hidden">
-                  <div class="platform-text absolute top-8 left-12 rounded-lg">
+                  <div class="platform-text absolute top-8 left-12 rounded-lg h-2/3">
                       <h2 class="platform-title mb-3">{{ platform.name }}</h2>
                       <div class="platform-games-count flex items-center">
-                          <img src="../assets/icons/game.png" class="h-7 block">
-                          <p class="ml-2">
-                              {{ platform.games_count }}
-                            Games</p>
+                          <img src="../assets/icons/game.png" class="h-7 block disc-game-icon">
+                          <p class="ml-2">{{ platform.games_count }} Games</p>
                         </div>
-                      <div>{{ platform.description }}</div>
-                      <ul>
-                          <li v-for="(game, index) in platform.games" :key="index">
+                        <hr class="w-10/12 mt-3">
+                      <ul class="w-11/12 flex flex-wrap mt-10 underline">
+                          <li v-for="(game, index) in platform.games" :key="index" class="w-1/2 text-lg">
                               <router-link :to="{ name: 'Game', params: { id: game.id } }">{{ game.name }}</router-link>
                           </li>
                       </ul>
@@ -29,12 +27,8 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-import AnimatedNumber from "animated-number-vue";
 export default {
     name: "Platforms",
-    components: {
-        AnimatedNumber
-    },
 
     computed: {
         ...mapState(
@@ -76,5 +70,30 @@ export default {
 .platform-games-count {
     font-family: "Audiowide", cursive;
     font-size: 1.5rem;
+    animation: slideTopFadeIn 1.5s ease-out;;
+}
+
+@keyframes slideTopFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+.disc-game-icon {
+    animation: discRotate 1.5s 1s ease-in;
+}
+
+@keyframes discRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 </style>
