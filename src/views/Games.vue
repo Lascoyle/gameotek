@@ -5,7 +5,7 @@
         <div class="next-games hover:text-purple-600 text-gray-300" @click="callNextPage()">❱</div>
         <div class="order-elmts flex justify-end w-full mr-20 my-10">
             <div class="search ml-4">
-                <input class="text-gray-600 rounded-full border-2 focus:border-purple-600 p-2" type="text" placeholder="Search a game..." v-model="queryGame" @keypress="fetchGames()">
+                <input class="text-gray-600 rounded-full border-2 focus:border-purple-600 p-2" type="text" placeholder="Search a game..." :value="queryGame" @keyup.enter="fetchGames">
             </div>
             <div @click="sortByName()" class="order-elmt rounded-full bg-gray-900 font-bold p-2 px-4 ml-4">
                 Order by name
@@ -71,6 +71,7 @@ export default {
         ...mapState(
             {
                 games: state => state.games,
+                queryGame: state => state.queryGame
             }
         )
     },
@@ -97,11 +98,15 @@ export default {
             "fetchGames"
         ]),
 
-        fetchGames() {
-            axios
-            .get(`https://api.rawg.io/api/games?search=${this.queryGame}&page_size=40`)
-            .then(response => {this.games = response.data});
+        fetchGames (event) {
+            this.$store.commit('fetchGames', event.target.value)
         },
+
+        // fetchGames() {
+        //     axios
+        //     .get(`https://api.rawg.io/api/games?search=${this.queryGame}&page_size=40`)
+        //     .then(response => {this.games = response.data});
+        // },
 
         sortByName() {
             this.games.results.sort((a,b) => a.name < b.name ? -1 : 1);

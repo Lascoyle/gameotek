@@ -6,7 +6,7 @@ export default createStore({
     games: [],
     currentPage: 1,
     changePage: 1,
-    // queryGame: ""
+    queryGame: "",
     game: {},
 
     platforms: []
@@ -47,11 +47,14 @@ export default createStore({
         }
     },
 
-    // fetchGames(queryGame) {
-    //   axios
-    //   .get(`https://api.rawg.io/api/games?search=${queryGame}&page_size=40`)
-    //   .then(response => {this.state.games = response.data});
-    //   console.log(queryGame);
+    fetchGames(state, queryGame) {
+      state.queryGame = queryGame;
+      axios
+      .get(`https://api.rawg.io/api/games?search=${this.state.queryGame}&page_size=40`)
+      .then(response => {this.state.games = response.data})
+      .catch(error => console.log(error));
+      console.log(queryGame);
+    },
 
     getGame(state, id) {
       state.game = {};
@@ -80,11 +83,11 @@ export default createStore({
 
     getPlatforms: context => {
       context.commit('getPlatforms')
-    }
+    },
 
-    // fetchGames: context => {
-    //   context.commit('fetchGames')
-    // }
+    fetchGames: context => {
+      context.commit('fetchGames')
+    }
   },
   modules: {
 
