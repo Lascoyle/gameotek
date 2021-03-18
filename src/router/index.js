@@ -10,19 +10,19 @@ const routes = [
   {
     path: '/games',
     name: 'Games',
-    component: () => import(/* webpackChunkName: "games" */ '../views/Games.vue')
+    component: () => import(/* webpackChunkName: "games" */ '../views/Games/Games.vue')
   },
 
   {
     path: '/game/:id',
     name: 'Game',
-    component: () => import(/* webpackChunkName: "game" */ '../views/Game.vue')
+    component: () => import(/* webpackChunkName: "game" */ '../views/Games/Game.vue')
   },
 
   {
     path: '/platforms',
     name : 'Platforms',
-    component: () => import(/* webpackChunkName: "platforms" */ '../views/Platforms.vue')
+    component: () => import(/* webpackChunkName: "platforms" */ '../views/Platforms/Platforms.vue')
   }
 ]
 

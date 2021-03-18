@@ -12,7 +12,7 @@
                 <div class="flex flex-wrap my-12">
                     <div v-for="(screenshot, index) in screenshots" :key="index" class="w-4/12 p-1 currentgame-screenshot-container relative">
                         <a :href="screenshot.image" target="_blank"><img :src="screenshot.image" alt="game's screenshot" class="block rounded-lg relative currentgame-screenshot"></a>
-                        <img src="../assets/icons/zoom.svg" class="zoom-screenshot w-9 absolute bottom-3 right-4 text-white opacity-40 font-bold">
+                        <img src="../../assets/icons/zoom.svg" class="zoom-screenshot w-9 absolute bottom-3 right-4 text-white opacity-40 font-bold">
                     </div>
                     <!-- <iframe :src="game.clip.clip" width="30%" allow="fullscreen" frameborder="0" class="ml-2"></iframe> -->
                 </div>
@@ -28,12 +28,12 @@
                         <ul class="currentgame-creators w-full">
                             <li :style="{ backgroundImage: 'url(' + creator.image_background + ')'}" class="currentgame-creator w-2/3 bg-center bg-cover bg-no-repeat rounded-lg py-9 px-8 flex mb-4 relative" v-for="(creator, index) in creators" :key="index">
                                 <img v-if="creator.image != null" :src="creator.image" alt="" class="rounded-full w-28 h-28 block creator-img self-center">
-                                <img v-else src="../assets/icons/unknown.svg" alt="" class="rounded-full w-28 h-28 block creator-img self-center">
+                                <img v-else src="../../assets/icons/unknown.svg" alt="" class="rounded-full w-28 h-28 block creator-img self-center">
                                 <div class="ml-8 flex w-9/12 flex-col justify-between">
                                     <div class="flex items-center w-full justify-between">
                                         <p class="creator-name text-white text-2xl pb-2">{{ creator.name }}</p>
                                         <div class="flex">
-                                            <img src="../assets/icons/game.png" alt="" class="creator-games-icon w-5 h-5">
+                                            <img src="../../assets/icons/game.png" alt="" class="creator-games-icon w-5 h-5">
                                             <p class="creator-games-count ml-1 text-white">{{ creator.games_count }}</p>
                                         </div>
                                     </div>

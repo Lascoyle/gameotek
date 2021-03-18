@@ -9,7 +9,7 @@
                   <div class="platform-text absolute top-8 left-12 rounded-lg h-2/3">
                       <h2 class="platform-title mb-3">{{ platform.name }}</h2>
                       <div class="platform-games-count flex items-center">
-                          <img src="../assets/icons/game.png" class="h-7 block disc-game-icon">
+                          <img src="../../assets/icons/game.png" class="h-7 block disc-game-icon">
                           <p class="ml-2">{{ platform.games_count }} Games</p>
                         </div>
                         <hr class="w-10/12 mt-3">
