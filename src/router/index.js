@@ -23,7 +23,19 @@ const routes = [
     path: '/platforms',
     name : 'Platforms',
     component: () => import(/* webpackChunkName: "platforms" */ '../views/Platforms/Platforms.vue')
-  }
+  },
+
+  {
+    path: '/login',
+    name : 'Login',
+    component: () => import(/* webpackChunkName: "login" */ '../views/Auth/Login.vue')
+  },
+
+  {
+    path: '/register',
+    name : 'Register',
+    component: () => import(/* webpackChunkName: "register" */ '../views/Auth/Register.vue')
+  },
 ]
 
 const router = createRouter({
