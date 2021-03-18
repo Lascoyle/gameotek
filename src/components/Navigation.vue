@@ -9,6 +9,7 @@
         <div>
           <router-link to="/login" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Login</router-link>
           <router-link to="/register" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Register</router-link>
+          <router-link to="/profile" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Profile</router-link>
         </div>
     </div>
   </nav>
