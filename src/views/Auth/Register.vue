@@ -1,23 +1,30 @@
 <template>
-    <section id="register" class="p-6 lg:p-8 lg:p-20 h-screen w-full flex justfy-center items-center">
-        <h1 class="register-main-title text-white  w-5/12 p-12">"Add your beloved games to accessible collections right now!"</h1>
+    <section id="register" class="p-6 lg:p-20 h-screen w-full flex justfy-center items-end">
+        <h1 class="register-main-title text-white  w-5/12 p-12 rounded-xl rounded-r-none">"Add your beloved games to accessible collections right now!"</h1>
         <div v-if="error" class="error text-red-600">{{ error.message }}</div>
-        <form @submit.prevent="pressed" class="p-20 bg-white h-full w-6/12 flex flex-col justify-between">
-            <h2 class="text-4xl text-purple-900 register-title">Register</h2>
-            <div class="form-input-group w-full h-full flex flex-col justify-center">
-                <div class="email p-8">
-                    <input type="email" v-model="email" placeholder="Email" class="text-white border-4 focus:border-purple-900 rounded-full w-full h-12 px-4">
+        <form @submit.prevent="pressed" class="p-20 bg-white h-full w-7/12 flex flex-col justify-between items-center">
+            <div class="form-input-group h-full flex flex-col justify-end w-11/12 rounded-xl rounded-l-none">
+                <h2 class="text-4xl text-purple-900 register-title mb-16">Register</h2>
+                <hr>
+                <div class="email py-3">
+                    <label for="email" name="email" class="text-purple-900 font-semibold text-lg">Email</label>
+                    <input type="email" v-model="email" placeholder="Please enter your email..." class="text-gray-400 border-4 focus:outline-none focus:border-purple-400 rounded-full w-full h-12 px-4">
                 </div>
-                <div class="password p-8">
-                    <input type="password" v-model="password" placeholder="Password" class="text-white border-4 focus:border-purple-900 rounded-full w-full h-12 px-4">
+                <div class="password py-3">
+                    <label for="password" name="password" class="text-purple-900 font-semibold text-lg">Password</label>
+                    <input type="password" v-model="password" placeholder="Please enter your password..." class="text-gray-400 border-4 focus:outline-none focus:border-purple-400 rounded-full w-full h-12 px-4">
                 </div>
-                <button type="submit" class="text-lg self-end justify-end mt-6 text-white bg-gray-400 rounded-full p-2 px-4 mr-8">Register</button>
+                <span class="text-gray-600">Already registered? Click here to <router-link to= "/login" class="underline border-none hover:text-green-400 text-purple-900">login</router-link> to your account!</span>
+                <button type="submit" class="text-lg self-end justify-end mt-6 text-white font-semibold bg-gray-900 rounded-full p-2 px-4 ">Register</button>
             </div>
         </form>
     </section>
 </template>
 
 <script>
+import * as firebase from 'firebase/app'
+require("firebase/auth")
+
 export default {
     name: "Register",
     data() {
@@ -28,8 +35,14 @@ export default {
         }
     },
     methods: {
-        pressed() {
-            alert('submitted')
+        async pressed() {
+            try {
+                const user = firebase.default.auth().createUserWithEmailAndPassword(this.email, this.password);
+                console.log(user);
+                this.$router.replace({name: "Profile"})
+            } catch(error) {
+                console.log(error);
+            }
         }
     }
 }

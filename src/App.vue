@@ -1,6 +1,7 @@
 <template>
   <div id="main-layout" class="min-h-screen bg-fixed">
     <navigation></navigation>
+    <top-header></top-header>
     <router-view/>
     <scroll-to-top></scroll-to-top>
   </div>
@@ -9,8 +10,9 @@
 <script>
 import Navigation from './components/Navigation.vue'
 import ScrollToTop from './components/ScrollToTop'
+import TopHeader from './components/TopHeader.vue'
 export default {
-  components: { Navigation, ScrollToTop },
+  components: { Navigation, ScrollToTop, TopHeader },
 }
 </script>
 
