@@ -6,6 +6,7 @@
           <router-link to="/games" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Games</router-link>
           <router-link to="/platforms" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Platforms</router-link>
         </div>
+          <img src="../assets/icons/gameotek2.png" alt="application logo" class="w-18 mt-8">
         <div>
           <router-link to="/login" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Login</router-link>
           <router-link to="/register" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Register</router-link>
