@@ -13,8 +13,8 @@
                           <p class="ml-2">{{ platform.games_count }} Games</p>
                         </div>
                         <hr class="w-10/12 mt-3">
-                      <ul class="w-11/12 flex flex-wrap mt-10 underline">
-                          <li v-for="(game, index) in platform.games" :key="index" class="w-1/2 text-lg">
+                      <ul class="platform-games w-12/12 flex flex-wrap mt-10 underline">
+                          <li v-for="(game, index) in platform.games" :key="index" class="w-1/2 text-md my-2">
                               <router-link :to="{ name: 'Game', params: { id: game.id } }">{{ game.name }}</router-link>
                           </li>
                       </ul>
@@ -64,13 +64,14 @@ export default {
     font-family: "Audiowide", cursive;
     font-size: 3rem;
     mix-blend-mode: soft-light;
+    animation: fadeIn 1.5s linear;
 }
 
 
 .platform-games-count {
     font-family: "Audiowide", cursive;
     font-size: 1.5rem;
-    animation: slideTopFadeIn 1.5s ease-out;;
+    animation: slideTopFadeIn 1.5s ease-out;
 }
 
 @keyframes slideTopFadeIn {
@@ -94,6 +95,21 @@ export default {
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+.platform-games {
+    animation: slideBottomFadeIn 1.5s ease-out;
+}
+
+@keyframes slideBottomFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
     }
 }
 </style>

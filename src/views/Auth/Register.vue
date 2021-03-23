@@ -51,6 +51,7 @@ export default {
 <style>
 #register {
     font-family: "Prompt", sans-serif;
+        animation: fadeIn 200ms linear forwards;
 }
 
 .register-main-title {

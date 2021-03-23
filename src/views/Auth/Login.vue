@@ -51,6 +51,7 @@ export default {
 <style>
 #login {
     font-family: "Prompt", sans-serif;
+    animation: fadeIn 200ms linear forwards;
 }
 
 .login-main-title {

@@ -144,7 +144,7 @@ export default {
     computed: {
         ...mapState({
             game: state => state.game,
-        })
+        }),
     },
 
     mounted() {
@@ -174,7 +174,7 @@ export default {
     methods: {
         showSuggestionTitle() {
             this.suggestionTitle = true
-        }
+        },
     }
 }
 </script>
