@@ -24,8 +24,8 @@
                 </ul>
             </div>
         </transition>
-        <ul class="games-list flex flex-column justify-center lg:flex-col flex-wrap lg:px-16">
-            <li class="game-card w-12/12 sm:w-6/12 lg:w-4/12 xl:w-3/12 p-4" v-for="(game, index) in games.results" :key="index">
+        <ul class="games-list h-full flex flex-column justify-center lg:flex-row flex-wrap lg:px-16">
+            <li class="game card w-12/12 sm:w-6/12 lg:w-4/12 xl:w-3/12 p-4" v-for="(game, index) in games.results" :key="index">
                 <router-link :to="{ name: 'Game', params: { id: game.id } }">
                     <div class="game-image-container rounded-t-lg bg-gray-300">
                         <img v-if="game.background_image != null" :src="game.background_image" alt="" class="game-image block">
@@ -157,6 +157,7 @@ export default {
         font-size: 5rem;
     }
 
+
     .previous-games, .next-games {
         cursor: pointer;
         position: fixed;
@@ -166,11 +167,6 @@ export default {
 
     .next-games {
         right: 2%;
-    }
-
-    .games-list {
-        max-height: 5000px;
-        width: 95.5vw;
     }
 
     .game-image-container {
