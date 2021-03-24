@@ -2,7 +2,7 @@
     <section id="register" class="p-6 lg:p-20 h-screen w-full flex justfy-center items-end">
         <h1 class="register-main-title text-white  w-5/12 p-12 rounded-xl rounded-r-none">"Add your beloved games to accessible collections right now!"</h1>
         <form @submit.prevent="signup" class="p-20 bg-white h-full w-7/12 flex flex-col justify-between items-center">
-            <div class="form-input-group h-full flex flex-col justify-end w-11/12 rounded-xl rounded-l-none">
+            <div class="form-input-group h-full flex flex-col justify-start mt-8 w-11/12 rounded-xl rounded-l-none">
                 <h2 class="text-4xl text-purple-900 register-title mb-16">Register</h2>
                 <hr>
                 <div class="username py-3">

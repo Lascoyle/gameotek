@@ -11,7 +11,7 @@
           <router-link to="/login" class="nav-link text-white text-xl focus:outline-none mx-3" exact v-if="loggedIn">Login</router-link>
           <router-link to="/register" class="nav-link text-white text-xl focus:outline-none mx-3" exact v-if="loggedIn">Register</router-link>
           <router-link to="/dashboard" class="nav-link text-white text-xl focus:outline-none mx-3" exact v-if="!loggedIn">Dashboard</router-link>
-          <button @click="signOut" class="text-purple-800" v-if="!loggedIn">Sign Out</button>
+          <button @click="signOut" class="logout text-purple-800 text-lg bg-white px-4 py-1 rounded-full" v-if="!loggedIn">Sign Out</button>
         </div>
     </div>
   </nav>
@@ -53,10 +53,14 @@ export default {
 
 <style>
 .nav-link {
-    font-family: 'Audiowide', cursive;
-}
+  font-family: 'Audiowide', cursive;
+  }
 
 .router-link-active {
   border-bottom: #4c1d95 4px solid
+}
+
+.logout {
+  font-family: 'Audiowide', cursive;
 }
 </style>
