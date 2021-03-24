@@ -1,18 +1,17 @@
 <template>
   <section id="login" class="p-6 lg:p-20 h-screen w-full flex justfy-center items-end">
         <h1 class="login-main-title text-white  w-5/12 p-12 rounded-xl rounded-r-none">"Add some new games to your collections or create new ones!"</h1>
-        <div v-if="error" class="error text-red-600">{{ error.message }}</div>
-        <form @submit.prevent="pressed" class="p-20 bg-white h-full w-7/12 flex flex-col justify-between items-center">
+        <form @submit.prevent="login" class="p-20 bg-white h-full w-7/12 flex flex-col justify-between items-center">
             <div class="form-input-group h-full flex flex-col justify-end w-11/12 rounded-xl rounded-l-none">
                 <h2 class="text-4xl text-purple-900 login-title mb-16">Login</h2>
                 <hr>
                 <div class="email py-3">
                     <label for="email" name="email" class="text-purple-900 font-semibold text-lg">Email</label>
-                    <input type="email" v-model="email" placeholder="Please enter your email..." class="text-gray-400 border-4 focus:outline-none focus:border-purple-400 rounded-full w-full h-12 px-4">
+                    <input type="email" v-model="loginForm.email" placeholder="Please enter your email..." class="text-gray-400 border-4 focus:outline-none focus:border-purple-400 rounded-full w-full h-12 px-4">
                 </div>
                 <div class="password py-3">
                     <label for="password" name="password" class="text-purple-900 font-semibold text-lg">Password</label>
-                    <input type="password" v-model="password" placeholder="Please enter your password..." class="text-gray-400 border-4 focus:outline-none focus:border-purple-400 rounded-full w-full h-12 px-4">
+                    <input type="password" v-model="loginForm.password" placeholder="Please enter your password..." class="text-gray-400 border-4 focus:outline-none focus:border-purple-400 rounded-full w-full h-12 px-4">
                 </div>
                 <span class="text-gray-600">Need an account? Click here to <router-link to= "/register" class="underline hover:text-green-400 text-purple-900">register</router-link>!</span>
                 <button type="submit" class="text-lg self-end justify-end mt-6 text-white font-semibold bg-gray-900 rounded-full p-2 px-4 ">Login</button>
@@ -22,27 +21,22 @@
 </template>
 
 <script>
-import * as firebase from 'firebase/app'
-require("firebase/auth")
-
 export default {
   name: "Login",
   data() {
     return {
-      email: "",
-      password: "",
-      error: ""
+      loginForm: {
+        email: "",
+        password: "",
+      }
     }
   },
   methods: {
-    async pressed() {
-      try {
-        const val = await firebase.default.auth().signInWithEmailAndPassword(this.email, this.password);
-        console.log(val);
-        this.$router.replace({name: "Profile"})
-      } catch(error) {
-        console.log(error);
-      }
+    login() {
+      this.$store.dispatch('login', {
+        email: this.loginForm.email,
+        password: this.loginForm.password
+      })
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <section id="currentgame">
-        <div class="currentgame-header">
+        <div class="currentgame-header min-w-full bg-gray-300">
             <img :src="game.background_image" alt="image from the game" class="currentgame-image">
             <h1 class="currentgame-title text-white bottom-0 right-4 absolute">{{ game.name }}</h1>
         </div>
@@ -45,9 +45,13 @@
                                             <span class="text-center text-md font-semibold text-white mr-3" v-for="(position, index) in creator.positions" :key="index">{{ position.name.charAt(0).toUpperCase() + position.name.slice(1) }}</span>
                                         </div>
                                     </div>
-                                    <div class="w-full flex flex-wrap h-2/4">
-                                        <div class="text-xs mr-4 text-white font-medium leading-normal underline" v-for="(game, index) in creator.games" :key="index">{{ game.name }}</div>
-                                    </div>
+                                    <ul class="w-full flex flex-wrap h-2/4">
+                                        <div class="text-xs mr-4 text-gray-400 font-medium leading-normal underline" v-for="(game, index) in creator.games" :key="index">
+                                            <router-link :to="{ name: 'Game', params: { id: game.id}}" replace @click="refreshGame" class="border-none hover:text-white">
+                                                {{ game.name }}
+                                            </router-link>
+                                        </div>
+                                    </ul>
                                 </div>
                             </li>
                         </ul>

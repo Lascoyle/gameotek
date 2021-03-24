@@ -27,7 +27,7 @@
         <ul class="games-list h-full flex flex-column justify-center lg:flex-row flex-wrap lg:px-16">
             <li class="game card w-12/12 sm:w-6/12 lg:w-4/12 xl:w-3/12 p-4" v-for="(game, index) in games.results" :key="index">
                 <router-link :to="{ name: 'Game', params: { id: game.id } }">
-                    <div class="game-image-container rounded-t-lg">
+                    <div class="game-image-container rounded-t-lg bg-gray-300">
                         <img v-if="game.background_image != null" :src="game.background_image" alt="" class="game-image block">
                         <img v-else src="../../assets/images/no-image.png" alt="" class="game-image block">
                     </div>

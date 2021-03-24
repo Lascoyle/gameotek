@@ -1,6 +1,6 @@
 <template>
   <nav id="nav" class="bg-purple-400 h-16 w-full flex flex-column justify-center fixed z-50 bg-opacity-20">
-    <div class="nav-links-group w-full flex justify-between items-center px-20 mx-5">
+    <div class="nav-links-group w-full flex justify-between items-center px-20">
         <div>
           <router-link to="/" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Home</router-link>
           <router-link to="/games" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Games</router-link>

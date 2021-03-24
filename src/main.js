@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
 import './assets/tailwind.css'
 
 // Global access to axios
@@ -18,13 +20,18 @@ const firebaseConfig = {
     appId: "1:650766892923:web:b9fdc9eb3a76f4a0f2c7de"
 };
 
-
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-let app
+// Firebase utils
+export const db = firebase.firestore();
+export const auth = firebase.default.auth();
 
+// Firebase collections references
+export const usersCollection = db.collection('users');
+
+//Firebase initialize before app load
+let app
 firebase.default.auth().onAuthStateChanged(user => {
     if(!app) {
         app = createApp(App).use(store).use(router).mount('#app')
