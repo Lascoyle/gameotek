@@ -28,7 +28,7 @@ export default {
       loginForm: {
         email: "",
         password: "",
-      }
+      },
     }
   },
   methods: {

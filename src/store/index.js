@@ -113,7 +113,7 @@ export default createStore({
       commit('setUserProfile', userProfile.data())
 
       // change route to profile
-      router.push({name: 'Profile'})
+      router.push({name: 'Dashboard'})
     },
 
 

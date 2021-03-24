@@ -3,7 +3,7 @@
         <div v-if="loggedIn" class=" text-center">Your are logged in!</div>
         <div v-else class=" text-center">Your are not logged in...</div>
         <div class="m-auto w-5/12">
-            <button @click="signOut" class="bg-white text-purple-900 px-4 py-1 mt-2 font-semibold rounded-full">Signed Out</button>
+            <button @click="signOut" class="bg-white text-purple-900 px-4 py-1 mt-2 font-semibold rounded-full">Sign Out</button>
         </div>
     </div>
 </template>

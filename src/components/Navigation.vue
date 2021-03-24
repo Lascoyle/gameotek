@@ -8,17 +8,46 @@
         </div>
           <img src="../assets/icons/gameotek2.png" alt="application logo" class="w-18 mt-8">
         <div>
-          <router-link to="/login" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Login</router-link>
-          <router-link to="/register" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Register</router-link>
-          <router-link to="/profile" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Profile</router-link>
+          <router-link to="/login" class="nav-link text-white text-xl focus:outline-none mx-3" exact v-if="loggedIn">Login</router-link>
+          <router-link to="/register" class="nav-link text-white text-xl focus:outline-none mx-3" exact v-if="loggedIn">Register</router-link>
+          <router-link to="/dashboard" class="nav-link text-white text-xl focus:outline-none mx-3" exact v-if="!loggedIn">Dashboard</router-link>
+          <button @click="signOut" class="text-purple-800" v-if="!loggedIn">Sign Out</button>
         </div>
     </div>
   </nav>
 </template>
 
 <script>
+import * as firebase from 'firebase/app'
 export default {
-    name: 'Navigation'
+    name: 'Navigation',
+    data() {
+      return {
+        loggedIn: false
+      }
+    },
+
+    created() {
+        firebase.default.auth().onAuthStateChanged(user => {
+            if(user) {
+                this.loggedIn = false;
+            } else {
+                this.loggedIn = true;
+            }
+        })
+    },
+
+    methods: {
+        async signOut() {
+            try {
+                const data = firebase.default.auth().signOut();
+                console.log(data);
+                this.$router.replace({name: "Login"});
+            } catch(error) {
+                console.log(err);
+            }
+        }
+    }
 }
 </script>
 

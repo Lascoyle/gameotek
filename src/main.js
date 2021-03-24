@@ -33,8 +33,12 @@ export const usersCollection = db.collection('users');
 //Firebase initialize before app load
 let app
 firebase.default.auth().onAuthStateChanged(user => {
-    if(!app) {
+    if (!app) {
         app = createApp(App).use(store).use(router).mount('#app')
+    }
+
+    if (user) {
+        store.dispatch('fetchUserProfile', user)
     }
 })
 
