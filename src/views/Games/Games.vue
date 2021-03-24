@@ -86,10 +86,6 @@ export default {
             .catch(error => console.log(error));
     },
 
-    updated() {
-
-    },
-
     methods: {
 
         ...mapMutations([

@@ -19,8 +19,10 @@
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Similar games</h3>
                 <div class="flex flex-wrap my-12">
                     <div v-for="(suggestion, index) in suggestions" :key="index" class="w-64 p-1 currentgame-suggestions-container relative">
-                        <a :href="suggestion.background_image" target="_blank"><img :src="suggestion.background_image" alt="game's suggestions" class="block rounded-lg relative currentgame-suggestions" @mouseenter="suggestionTitle = true" @mouseleave="suggestionTitle = false"></a>
-                        <div v-show="suggestionTitle" class="suggestion-name absolute top-1/3 w-52 text-center text-lg text-white font-bold opacity-80">{{ suggestion.name }}</div>
+                        <router-link :to="{ name: 'Game', params: { id: suggestion.id}}" replace @click="refreshGame">
+                            <img :src="suggestion.background_image" alt="game's suggestions" class="block rounded-lg relative currentgame-suggestions" @mouseenter="suggestionTitle = true" @mouseleave="suggestionTitle = false">
+                            <div v-show="suggestionTitle" class="suggestion-name absolute top-1/3 w-52 text-center text-lg text-white font-bold opacity-80">{{ suggestion.name }}</div>
+                        </router-link>
                     </div>
                 </div>
                 <h3 class="currentgame-creators-title text-purple-900 leading-tight">Creators</h3>
@@ -174,6 +176,10 @@ export default {
     methods: {
         showSuggestionTitle() {
             this.suggestionTitle = true
+        },
+
+        refreshGame () {
+            this.$store.commit('getGame')
         },
     }
 }
