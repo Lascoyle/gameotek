@@ -120,9 +120,10 @@
                                  <li class="currentgame-tag text-sm leading-loose ml-3 underline" v-for="(tag, index) in game.tags" :key="index"> {{ tag.name.charAt(0).toUpperCase() + tag.name.slice(1) }}</li>
                              </ul>
                          </div>
-                         <div v-if="game.website != null" class="currentgame-website-container px-8 py-4 w-full">
+                         <div class="currentgame-website-container px-8 py-4 w-full">
                             <h6 class="currentgame-website-title text-right">Website</h6>
-                            <a :href="game.website"><p class="currentgame-website text-right w-full hover:underline">{{ game.website }}</p></a>
+                            <p class="currentgame-website text-right w-full hover:underline" v-if="game.website != ''"><a :href="game.website">{{ game.website }}</a></p>
+                            <p class="text-right w-full" v-else>No official website known.</p>
                          </div>
                     </div>
                 </div>

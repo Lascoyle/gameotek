@@ -24,8 +24,8 @@
                 </ul>
             </div>
         </transition>
-        <ul class="games-list h-full flex flex-column justify-center lg:flex-row flex-wrap lg:px-16">
-            <li class="game card w-12/12 sm:w-6/12 lg:w-4/12 xl:w-3/12 p-4" v-for="(game, index) in games.results" :key="index">
+        <ul class="games-list flex flex-column justify-center lg:flex-col flex-wrap lg:px-16">
+            <li class="game-card w-12/12 sm:w-6/12 lg:w-4/12 xl:w-3/12 p-4" v-for="(game, index) in games.results" :key="index">
                 <router-link :to="{ name: 'Game', params: { id: game.id } }">
                     <div class="game-image-container rounded-t-lg bg-gray-300">
                         <img v-if="game.background_image != null" :src="game.background_image" alt="" class="game-image block">
@@ -35,7 +35,7 @@
                 <div class="game-textual card-header bg-gray-200 rounded-b-lg">
                     <header class="card-header flex items-baseline justify-between bg-gray-300 p-4">
                         <router-link :to="{ name: 'Game', params: {id: game.id} }"><h2 class="game-name text-2xl font-black w-10/12 mb-5">{{ game.name }}</h2></router-link>
-                        <p class="game-rating"><span class="text-purple-500 font-bold text-xl">{{ Math.round(game.rating) }}</span><span class="text-green-400 font-black text-3xl">/{{ game.rating_top }}</span></p>
+                        <p class="game-rating"><span class="text-purple-500 font-bold text-3xl">{{ Math.round(game.rating) }}</span><span class="text-green-400 font-black text-xl">/{{ game.rating_top }}</span></p>
                     </header>
                    <div class="p-4">
                         <ul class="genres-list flex flex-wrap justify-end font-semibold">
@@ -157,7 +157,6 @@ export default {
         font-size: 5rem;
     }
 
-
     .previous-games, .next-games {
         cursor: pointer;
         position: fixed;
@@ -167,6 +166,11 @@ export default {
 
     .next-games {
         right: 2%;
+    }
+
+    .games-list {
+        max-height: 5000px;
+        width: 95.5vw;
     }
 
     .game-image-container {
