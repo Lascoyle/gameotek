@@ -25,8 +25,8 @@
             </div>
             <div class="game-add-platform py-3 text-gray-700 font-semibold">
                 <label for="game-add-platform" name="game-add-platform" class="block py-2">Game Platform :</label>
-                <select name="game-add-platform">
-                    <option v-for="(addPlatform, index) in addPlatforms.results" :key="index" :value="gameAddForm.platform = addPlatform.name">{{ addPlatform.name }}</option>
+                <select name="game-add-platform" @change="changePlatform($event)" v-model="gameAddForm.platform">
+                    <option v-for="(addPlatform, index) in addPlatforms" :key="index">{{addPlatform.name }}</option>
                 </select>
             </div>
             <button type="submit" class="bg-gray-900 rounded-full text-white px-4 py-2 my-4">Add game to the collection</button>
@@ -65,7 +65,7 @@ export default {
         this.$store.dispatch('getGame', this.$route.params.id);
         axios
             .get(`https://api.rawg.io/api/platforms`)
-            .then(response => {this.addPlatforms = response.data})
+            .then(response => {this.addPlatforms = response.data.results})
             .catch(error => console.log(error));
     },
 
@@ -73,6 +73,12 @@ export default {
         formatDate(value) {
             value = moment(value).format('L');
             return value;
+        },
+
+        changePlatform(event) {
+            console.log(event.target.value)
+            this.gameAddForm.platform = event.target.value;
+            return this.gameAddForm.platform;
         },
 
         async addGame() {
