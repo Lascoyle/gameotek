@@ -12,7 +12,7 @@
             </div>
             <div class="game-add-released py-3">
                 <label for="game-add-released" name="game-add-released" class="block">Game Released:</label>
-                <input type="text" disabled="disabled" :value="game.released" class="block rounded-full bg-gray-100 text-gray-500 px-4 py-2">
+                <input type="text" disabled="disabled" :value="formatDate(game.released)" class="block rounded-full bg-gray-100 text-gray-500 px-4 py-2">
             </div>
             <div class="game-add-image py-3">
                 <label for="game-add-image" name="game-add-image" class="block">Game Image:</label>
@@ -35,12 +35,13 @@
 
 <script>
 import { mapState } from 'vuex'
+import moment from 'moment'
 
 export default {
     name: "GameAdd",
     data() {
         return {
-            addPlatforms:[]
+            addPlatforms:[],
         }
     },
 
@@ -59,6 +60,11 @@ export default {
     },
 
     methods: {
+        formatDate(value) {
+            value = moment(value).format('L');
+            return value;
+        },
+
         addGame() {
 
         }
