@@ -33,9 +33,12 @@
                     </div>
                 </router-link>
                 <div class="game-textual card-header bg-gray-200 rounded-b-lg">
-                    <header class="card-header flex items-baseline justify-between bg-gray-300 p-4">
-                        <router-link :to="{ name: 'Game', params: {id: game.id} }"><h2 class="game-name text-2xl font-black w-10/12 mb-5">{{ game.name }}</h2></router-link>
-                        <p class="game-rating"><span class="text-purple-500 font-bold text-3xl">{{ Math.round(game.rating) }}</span><span class="text-green-400 font-black text-xl">/{{ game.rating_top }}</span></p>
+                    <header class="card-header bg-gray-300 p-4">
+                        <div class="flex justify-between items-center">
+                            <router-link :to="{ name: 'Game', params: {id: game.id} }"><h2 class="game-name text-2xl font-black w-10/12 mb-5">{{ game.name }}</h2></router-link>
+                            <p class="game-rating"><span class="text-purple-500 font-bold text-3xl">{{ Math.round(game.rating) }}</span><span class="text-green-400 font-black text-xl">/{{ game.rating_top }}</span></p>
+                        </div>
+                        <div v-if="loggedIn" class="text-md text-gray-500 cursor-pointer"><span class="font-bold">✚</span> <span class="hover:underline">Add to collection</span></div>
                     </header>
                    <div class="p-4">
                         <ul class="genres-list flex flex-wrap justify-end font-semibold">
@@ -58,6 +61,7 @@
 <script>
 // import axios from 'axios';
 import { mapState, mapMutations, mapActions } from "vuex"
+import * as firebase from 'firebase/app'
 
 export default {
     name: "Games",
@@ -66,6 +70,7 @@ export default {
             platforms: [],
             queryGame: "",
             fetchedPlatforms: false,
+            loggedIn: false
         }
     },
 
@@ -84,6 +89,16 @@ export default {
             .get(`https://api.rawg.io/api/platforms`)
             .then(response => {this.platforms = response.data})
             .catch(error => console.log(error));
+    },
+
+    created() {
+        firebase.default.auth().onAuthStateChanged(user => {
+            if(user) {
+                this.loggedIn = true;
+            } else {
+                this.loggedIn = false;
+            }
+        })
     },
 
     methods: {
