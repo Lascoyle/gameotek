@@ -30,6 +30,7 @@ export const auth = firebase.default.auth();
 
 // Firebase collections references
 export const usersCollection = db.collection('users');
+export const gamesCollection = db.collection('games');
 
 //Firebase initialize before app load
 let app
