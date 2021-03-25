@@ -2,7 +2,7 @@
     <div id="game-add" class="p-6 lg:p-8 lg:pt-20 h-full">
         <h1 class="game-add-title text-purple-900 w-8/12 games-title text-4xl lg:pl-16 font-black mb-10 lg:mt-10">Add Game to Collection</h1>
         <form @submit.prevent="addGame" class="w-8/12 mx-16 p-10 bg-white rounded-lg">
-            <h2 class="game-add-form-title text-purple-900">You are about to add <span class="border-b-4 border-purple-900">{{ game.name }}</span> . Are you sure? </h2>
+            <h2 class="game-add-form-title text-purple-900">{{ userProfile.username.charAt(0).toUpperCase() + userProfile.username.slice(1) }}, you are about to add <span class="border-b-4 border-purple-900">{{ game.name }}</span> . Are you sure? </h2>
             <div class="game-add-id py-3 text-gray-700 font-semibold">
                 <label for="game-add-id" name="game-add-id" class="block py-2">Game Id :</label>
                 <input type="text" disabled="disabled" :value="gameAddForm.id = game.id" class="block rounded-full bg-gray-100 text-gray-500 px-4 py-2">
@@ -26,7 +26,7 @@
             <div class="game-add-platform py-3 text-gray-700 font-semibold">
                 <label for="game-add-platform" name="game-add-platform" class="block py-2">Game Platform :</label>
                 <select name="game-add-platform" @change="changePlatform($event)" v-model="gameAddForm.platform">
-                    <option v-for="(addPlatform, index) in addPlatforms" :key="index">{{addPlatform.name }}</option>
+                    <option v-for="(addPlatform, index) in addPlatforms" :key="index">{{ addPlatform.name }}</option>
                 </select>
             </div>
             <button type="submit" class="bg-gray-900 rounded-full text-white px-4 py-2 my-4">Add game to the collection</button>
@@ -56,9 +56,7 @@ export default {
     },
 
     computed: {
-        ...mapState({
-            game: state => state.game,
-        }),
+        ...mapState(['game','userProfile'] ),
     },
 
     mounted() {
@@ -88,7 +86,9 @@ export default {
                     description: this.gameAddForm.description,
                     image: this.gameAddForm.image,
                     released_date: this.gameAddForm.released_date,
-                    platform: this.gameAddForm.platform
+                    platform: this.gameAddForm.platform,
+                    user_id: fb.auth.currentUser.uid,
+                    created_on: new Date()
                 };
 
                 fb.gamesCollection.add(game);
