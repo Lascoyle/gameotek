@@ -34,11 +34,11 @@
                 </router-link>
                 <div class="game-textual card-header bg-gray-200 rounded-b-lg">
                     <header class="card-header bg-gray-300 p-4">
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between">
                             <router-link :to="{ name: 'Game', params: {id: game.id} }"><h2 class="game-name text-2xl font-black w-10/12 mb-5">{{ game.name }}</h2></router-link>
                             <p class="game-rating"><span class="text-purple-500 font-bold text-3xl">{{ Math.round(game.rating) }}</span><span class="text-green-400 font-black text-xl">/{{ game.rating_top }}</span></p>
                         </div>
-                        <div v-if="loggedIn" class="text-md text-gray-500 cursor-pointer"><span class="font-bold">✚</span> <span class="hover:underline">Add to collection</span></div>
+                        <div v-if="loggedIn" class="text-md text-gray-500 cursor-pointer"><span class="font-bold">✚</span> <span class="hover:underline"><router-link :to="{ name: 'GameAdd', params: {id: game.id}}">Add to collection</router-link></span></div>
                     </header>
                    <div class="p-4">
                         <ul class="genres-list flex flex-wrap justify-end font-semibold">
@@ -125,9 +125,9 @@ export default {
             this.games.results.sort((a,b) => a.name < b.name ? -1 : 1);
         },
 
-        sendGameId(gameId) {
-            $emitter.emit('sendGameId', gameId);
-        },
+        // sendGameId(gameId) {
+        //     $emitter.emit('sendGameId', gameId);
+        // },
 
         fetchPlatforms() {
             this.fetchedPlatforms = true;

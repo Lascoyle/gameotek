@@ -22,6 +22,13 @@ const routes = [
   },
 
   {
+    path: '/game-add/:id',
+    name: 'GameAdd',
+    component: () => import(/* webpackChunkName: "game" */ '../views/Games/GameAdd.vue'),
+    meta: {requiresAuth: true}
+  },
+
+  {
     path: '/platforms',
     name : 'Platforms',
     component: () => import(/* webpackChunkName: "platforms" */ '../views/Platforms/Platforms.vue')

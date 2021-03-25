@@ -11,6 +11,7 @@ export default createStore({
     game: {},
 
     platforms: [],
+    queryPlatform: "",
 
     userProfile: {}
   },
@@ -134,6 +135,7 @@ export default createStore({
       // fetch user profile and set in state
       dispatch('fetchUserProfile', user)
     }
+
   },
   modules: {
 
