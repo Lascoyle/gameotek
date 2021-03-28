@@ -81,7 +81,7 @@ export default {
 
         async addGame() {
                 const game = {
-                    id: this.gameAddForm.id,
+                    api_id: this.gameAddForm.id,
                     title: this.gameAddForm.title,
                     description: this.gameAddForm.description,
                     image: this.gameAddForm.image,
@@ -91,7 +91,10 @@ export default {
                     created_on: new Date()
                 };
 
-                fb.gamesCollection.add(game);
+                fb.gamesCollection.add(game)
+                .then(function(docRef) {
+                    console.log("Document written with ID: ", docRef.id);
+                })
 
                 console.log('Game added!!!')
         }
