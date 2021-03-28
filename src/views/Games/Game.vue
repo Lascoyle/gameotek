@@ -65,9 +65,13 @@
                             <div>{{ game.rating }}</div>
                             <div class="max-rating">/5</div>
                         </div>
-                        <div class="currentgame-ratingbar w-full" >
-                            <div v-for="(rating, index) in game.ratings" :key="index" class="w-full mb-4 my-6">
-                                <div class="rating-label">{{ rating.title.charAt(0).toUpperCase() + rating.title.slice(1)}} :</div>
+                        <div class="currentgame-ratingbar w-full text-gray-400" >
+                            <div v-for="(rating, index) in game.ratings" :key="index" class="w-full mb-4 my-3 bg-gray-100 p-3 px-4 rounded-lg">
+                                <span v-if="rating.title === 'exceptional'" class="text-3xl">😀</span>
+                                <span v-else-if="rating.title === 'recommended'" class="text-3xl">🙂</span>
+                                <span v-else-if="rating.title === 'skip'" class="text-3xl">☹️</span>
+                                <span v-else class="text-3xl">😑</span>
+                                <span class="rating-label ml-2">{{ rating.title.charAt(0).toUpperCase() + rating.title.slice(1)}} </span>
                                 <div class="flex flex-row-reverse items-center mt-3">
                                     <div :style="{ width: rating.percent + '%', animation: 'changeWidth 1.25s linear' }" class="h-6 rounded-md ml-3" :class="`${rating.title}`"></div>
                                     <div class="ratings-counts">{{ rating.count }}</div>
