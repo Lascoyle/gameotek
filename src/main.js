@@ -6,7 +6,6 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import './assets/tailwind.css'
-import moment from 'moment'
 
 // Global access to axios
 window.axios = require('axios');

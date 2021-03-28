@@ -9,14 +9,24 @@
               <router-link :to="{ name: 'Game', params: {id: game.api_id } }"><img :src="game.image" alt="" class="block h-24 "></router-link>
             </div>
             <details class="w-5/12">
-              <summary class=" text-purple-900 game-listed-title cursor-pointer">{{ game.title }}</summary>
-              <div class="text-black text-xs text-justify">
-                <hr class="py-2">
-                <div>{{ game.description }}</div>
+              <summary class=" text-purple-900 game-listed-title cursor-pointer focus:outline-none">{{ game.title }}</summary>
+              <div>
+                <hr class="py-2 b-2">
+                <div class="text-gray-600 text-xs text-justify leading-relaxed"><span v-html="game.description"></span></div>
               </div>
             </details>
-            <div class="w-2/12"><p>{{ game.platform }}</p></div>
-            <div class="w-1/12"><p>{{ game.released_date }}</p></div>
+            <div class="w-2/12 text-gray-700 font-medium cursor-default relative">
+              <p @mouseover="showPlatformLabel" @mouseleave="unshowPlatformLabel" class="">{{ game.platform }}</p>
+              <transition name="fade">
+                <p v-if="platformLabelShown === true" class="text-white bg-gray-700 text-center rounded-lg w-6/12 absolute left-4 p-1">Platform</p>
+              </transition>
+            </div>
+            <div class="w-1/12 text-gray-400 cursor-default relative">
+              <p @mouseover="showReleaseLabel" @mouseleave="unshowReleaseLabel">{{ game.released_date }}</p>
+              <transition name="fade">
+                <p v-if="releaseLabelShown === true" class="text-white bg-gray-700 text-center rounded-lg w-8/12 absolute left-12 p-1">Release</p>
+              </transition>
+            </div>
             <button @click="deleteGame(game.title)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-6"></button>
           </div>
         </li>
@@ -28,11 +38,14 @@
 <script>
 import { mapState } from 'vuex'
 import * as fb from '../../main'
+
 export default {
     name: "Profile",
     data() {
       return {
-        games: []
+        games: [],
+        platformLabelShown: false,
+        releaseLabelShown: false
       }
     },
     computed: {
@@ -43,7 +56,6 @@ export default {
         snapshot.forEach(doc => {
           let game = doc.data();
           this.games.push(game);
-          console.log(this.games)
         })
       })
     },
@@ -51,6 +63,26 @@ export default {
       deleteGame() {
         fb.gamesCollection.doc().delete();
         console.log('game deleted');
+      },
+
+      showPlatformLabel() {
+        console.log("shown")
+        this.platformLabelShown = true;
+      },
+
+      unshowPlatformLabel() {
+        console.log("not shown")
+        this.platformLabelShown = false;
+      },
+
+      showReleaseLabel() {
+        console.log("shown")
+        this.releaseLabelShown = true;
+      },
+
+      unshowReleaseLabel() {
+        console.log("not shown")
+        this.releaseLabelShown = false;
       }
     }
 }
@@ -59,6 +91,7 @@ export default {
 <style>
 #profile {
   animation: fadeIn 500ms linear forwards;
+  font-family: 'Prompt', sans-serif;
 }
 
 .profile-title {
@@ -68,5 +101,14 @@ export default {
 
 .game-listed-title {
   font-family: "Audiowide", cursive;
+}
+
+details[open] summary ~ * {
+  animation: sweep 0.8s ease-in-out;
+}
+
+@keyframes sweep {
+  0%    {opacity: 0; margin-top: -20px}
+  100%  {opacity: 1; margin-top: 0px}
 }
 </style>

@@ -21,7 +21,7 @@
             </div>
             <div class="game-add-description py-3 text-gray-700 font-semibold">
                 <label for="game-add-description" name="game-add-description" class="block py-2">Game Description :</label>
-                <textarea type="textarea" name="game-add-description" cols="70" rows="4" disabled="disabled" :value="gameAddForm.description = game.description_raw" class="rounded-lg bg-gray-100 text-gray-500 px-4 py-2"></textarea>
+                <textarea type="textarea" name="game-add-description" cols="70" rows="4" disabled="disabled" :value="gameAddForm.description = game.description" class="rounded-lg bg-gray-100 text-gray-500 px-4 py-2"></textarea>
             </div>
             <div class="game-add-platform py-3 text-gray-700 font-semibold">
                 <label for="game-add-platform" name="game-add-platform" class="block py-2">Game Platform :</label>
