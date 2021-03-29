@@ -52,13 +52,14 @@ export default {
     computed: {
       ...mapState(['userProfile'])
     },
+
     created() {
       fb.gamesCollection.where("user_id", "==", fb.auth.currentUser.uid).orderBy('created_on', 'desc').limit(5).onSnapshot(snapshot => {
         snapshot.docs.forEach(doc => {
           let game = doc.data();
           game.id = doc.id;
           this.games.push(game);
-          console.log(this.games)
+          console.log(this.games);
         })
       })
     },
@@ -66,7 +67,9 @@ export default {
     methods: {
       deleteGame(id) {
         fb.gamesCollection.doc(id).delete();
-        console.log('game deleted');
+        let gameToDelete = this.games.find( game => game.id === id);
+        let index = this.games.indexOf(gameToDelete);
+        this.games.splice(index, 1);
       },
 
       showPlatformLabel() {

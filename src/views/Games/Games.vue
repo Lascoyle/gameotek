@@ -59,7 +59,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
 import { mapState, mapMutations, mapActions } from "vuex"
 import * as firebase from 'firebase/app'
 
@@ -115,19 +114,9 @@ export default {
             this.$store.commit('fetchGames', event.target.value)
         },
 
-        // fetchGames() {
-        //     axios
-        //     .get(`https://api.rawg.io/api/games?search=${this.queryGame}&page_size=40`)
-        //     .then(response => {this.games = response.data});
-        // },
-
         sortByName() {
             this.games.results.sort((a,b) => a.name < b.name ? -1 : 1);
         },
-
-        // sendGameId(gameId) {
-        //     $emitter.emit('sendGameId', gameId);
-        // },
 
         fetchPlatforms() {
             this.fetchedPlatforms = true;
