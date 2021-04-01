@@ -55,12 +55,14 @@ export default {
 
     created() {
       fb.gamesCollection.where("user_id", "==", fb.auth.currentUser.uid).orderBy('created_on', 'desc').limit(5).onSnapshot(snapshot => {
-        snapshot.docs.forEach(doc => {
-          let game = doc.data();
-          game.id = doc.id;
-          this.games.push(game);
-          console.log(this.games);
-        })
+        if(this.games.length === 0){
+            snapshot.docs.forEach(doc => {
+            let game = doc.data();
+            game.id = doc.id;
+            this.games.push(game);
+            console.log(this.games);
+          })
+        }
       })
     },
 
