@@ -1,6 +1,6 @@
 <template>
   <div id="profile" class="p-6 lg:p-8 lg:pt-20 h-full">
-    <h1 class="profile-title text-4xl lg:pl-16 font-black text-purple-900 lg:mt-10">Welcome {{ user.username.charAt(0).toUpperCase() + user.username.slice(1) }}!</h1>
+    <h1 class="profile-title text-4xl lg:pl-16 font-black text-purple-900 lg:mt-10">Welcome {{ user.username }}!</h1>
     <ul v-if="lastGames.length != 0" class="px-20 py-16">
         <h2 @click="showLastGames" class="recent-games-list-title text-purple-900 mb-5 cursor-pointer"><span class="recent-games-list-title-arrow inline-block animate-bounce">▼</span> Last games you've added</h2>
         <li v-for="(game,index) in lastGames" :key="index" class="relative flex w-full p-4 px-8 justify-between items-center bg-white border-l-8 hover:border-purple-600 hover:bg-gray-50">
@@ -34,6 +34,22 @@
           </transition>
         </li>
     </ul>
+    <ul class="bg-purple-900 text-white w-2/12 fixed top-16 z-50 right-0 platforms-list">
+      <h4 class="absolute text-xl px-1 py-1 text-purple-600">❰❰</h4>
+      <li v-for="(platform, index) in platforms" :key="index" class="ml-7 border-b-2 border-purple-800 px-6 py-3 hover:bg-purple-600 cursor-pointer" @click="filterGamesByPlatform(platform.name)">{{ platform.name }}</li>
+    </ul>
+    <ul v-if="filterOff">
+      <li v-for="(game, index) in allGames" :key="index" class="flex w-8/12 justify-between">
+        <div>{{ game.title }}</div>
+        <div>{{ game.platform }}</div>
+      </li>
+    </ul>
+    <ul v-else>
+      <li v-for="(game, index) in filteredGames" :key="index" class="flex w-8/12 justify-between">
+        <div>{{ game.title }}</div>
+        <div>{{ game.platform }}</div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -50,15 +66,26 @@ export default {
         gamesCounter: new Number,
         platformLabelShown: false,
         releaseLabelShown: false,
-        lastGamesShown: false
+        lastGamesShown: false,
+        platforms: new Array,
+        filterOff: true,
+        filteredGames: new Array
       }
     },
+
     computed: {
       ...mapState(
         {
           user: state => state.userProfile
         }
       ),
+    },
+
+    mounted() {
+      axios
+        .get(`https://api.rawg.io/api/platforms`)
+        .then(response => {this.platforms = response.data.results})
+        .catch(error => console.log(error));
     },
 
     created() {
@@ -68,6 +95,7 @@ export default {
             let game = doc.data();
             game.id = doc.id;
             this.lastGames.push(game);
+            console.log(this.lastGames)
           })
         }
       });
@@ -110,7 +138,17 @@ export default {
         this.lastGamesShown = !this.lastGamesShown;
         let arrow = document.querySelector('.recent-games-list-title-arrow');
         arrow.classList.add('arrow-rotation');
-        // arrow.style.transform = 'rotate('+ 180 +'deg)';
+      },
+
+      filterGamesByPlatform(platform) {
+        console.log(platform);
+        this.filterOff = false;
+        this.filteredGames = [];
+        this.filteredGames = this.allGames.filter((item) => {
+          if(item.platform == platform) {
+            return item
+          }
+        })
       }
     }
 }
@@ -179,5 +217,17 @@ details[open] summary ~ * {
     display: block;
     transform: translateX(0%);
   }
+}
+
+.platforms-list {
+  transform: translateX(90%);
+  transition: transform 0.3s linear;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  height: 100vh;
+}
+
+.platforms-list:hover {
+  transform: translateX(0%);
 }
 </style>
