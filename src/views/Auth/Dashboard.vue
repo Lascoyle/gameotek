@@ -7,7 +7,7 @@
           <div v-if="lastGamesShown === false" class="game-hidden w-full absolute z-10 text-gray-400">{{ game.title }}</div>
           <transition name="slide-fade">
             <div v-show="lastGamesShown === true" class="w-full flex justify-between items-center">
-              <div class="w-2/12 self-start">
+              <div class="w-52 self-start">
                 <router-link :to="{ name: 'Game', params: {id: game.api_id } }"><img :src="game.image" alt="" class="block h-36 "></router-link>
               </div>
               <details class="w-5/12">
@@ -34,8 +34,6 @@
           </transition>
         </li>
     </ul>
-    <div v-else>There's no games yet</div>
-    
   </div>
 </template>
 
@@ -48,6 +46,7 @@ export default {
     data() {
       return {
         lastGames: new Array,
+        allGames: new Array,
         gamesCounter: new Number,
         platformLabelShown: false,
         releaseLabelShown: false,
@@ -69,13 +68,17 @@ export default {
             let game = doc.data();
             game.id = doc.id;
             this.lastGames.push(game);
-            console.log(this.lastGames);
           })
         }
       });
       fb.gamesCollection.where("user_id", "==", fb.auth.currentUser.uid).get().then(snap => {
         this.gamesCounter = snap.size;
-        console.log(this.gamesCounter);
+        snap.docs.forEach(doc => {
+            let game = doc.data();
+            game.id = doc.id;
+            this.allGames.push(game);
+            console.log(this.allGames)
+          })
       });
     },
 
