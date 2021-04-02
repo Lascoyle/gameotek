@@ -20,7 +20,7 @@
                 <div class="platforms-closer hover:opacity-100 text-white" @click="hidePlatforms()">X</div>
                 <h3 class="text-2xl mb-8">Platforms List</h3>
                 <ul class="platforms-list flex flex-wrap w-full">
-                        <li v-for="(platform, index) in platforms.results" :key="index" class="platforms-list-elmt w-2/12 border-green-400 hover:text-green-400 text-xs leading-relaxed p-1">{{ platform.name }}</li>
+                    <li v-for="(platform, index) in platforms.results" :key="index" class="platforms-list-elmt w-2/12 border-green-400 hover:text-green-400 text-xs leading-relaxed p-1">{{ platform.name }}</li>
                 </ul>
             </div>
         </transition>
@@ -38,7 +38,7 @@
                             <router-link :to="{ name: 'Game', params: {id: game.id} }"><h2 class="game-name text-2xl font-black w-10/12 mb-5">{{ game.name }}</h2></router-link>
                             <p class="game-rating"><span class="text-purple-500 font-bold text-3xl">{{ Math.round(game.rating) }}</span><span class="text-green-400 font-black text-xl">/{{ game.rating_top }}</span></p>
                         </div>
-                        <div v-if="loggedIn" class="text-md text-gray-500 cursor-pointer"><span class="font-bold">✚</span> <span class="hover:underline"><router-link :to="{ name: 'GameAdd', params: {id: game.id}}">Add to collection</router-link></span></div>
+                        <div v-if="loggedIn" class="text-md text-gray-500 cursor-pointer "><span class="font-bold text-white bg-gray-500 px-2 rounded-full">✚</span> <span class="hover:underline"><router-link :to="{ name: 'GameAdd', params: {id: game.id}}">Add to collection</router-link></span></div>
                     </header>
                    <div class="p-4">
                         <ul class="genres-list flex flex-wrap justify-end font-semibold">

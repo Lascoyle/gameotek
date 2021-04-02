@@ -6,6 +6,7 @@
         </div>
         <div class="currentgame-overview w-full md:flex justify-between">
             <article class="currentgame-description-container w-8/12 p-20">
+            <router-link :to="{ name: 'GameAdd', params: {id: game.id}}" class="text-4xl font-extrabold float-right text-gray-400 bg-gray-100 border-4 border-gray-200 rounded-full pb-4 pt-2 px-5 hover:text-white hover:bg-purple-900 hover:border-purple-600 transition duration-500 ease-in-out">+</router-link>
                 <h2 class="currentgame-description-title leading-snug mb-10 text-purple-900 ">{{ game.name }}</h2>
                 <div v-html="game.description" class="currentgame-description p-16 leading-loose text-gray-600 text-lg bg-white bg-opacity-50 mb-20"></div>
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Screenshots of {{ game.name }}</h3>
@@ -240,6 +241,7 @@ export default {
         transform: translateX(0%);
     }
 }
+
 
 .currentgame-description-title {
     font-family: 'Audiowide', cursive;
