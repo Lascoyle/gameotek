@@ -59,6 +59,7 @@
       </li>
     </ul>
     <ul v-else class="w-11/12 m-auto bg-white">
+      <div @click="sortByTitle(allGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Title</div>
       <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> Your games on {{ currentPlatform }} ({{ filteredGames.length }}) </h2>
       <li v-for="(game, index) in filteredGames" :key="index" class="hover:bg-gray-100 border-l-8 hover:border-purple-900 cursor-pointer">
         <div class="flex w-full justify-between items-center">

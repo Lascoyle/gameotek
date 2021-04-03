@@ -30,7 +30,9 @@
                 </select>
             </div>
             <button type="submit" class="bg-gray-900 rounded-full text-white px-4 py-2 my-4">Add game to the collection</button>
-            <span v-if="successStatus === true" class="text-green-400 ml-6 font-semibold">{{ successMessage}}</span>
+            <transition name="slide-fade">
+                <div v-if="successStatus === true" class="text-green-400 font-semibold">{{ successMessage}}</div>
+            </transition>
         </form>
     </div>
 </template>
