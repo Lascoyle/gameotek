@@ -8,7 +8,7 @@
           <transition name="slide-fade">
             <div v-show="lastGamesShown === true" class="w-full flex justify-between items-center">
               <div class="w-52 self-start">
-                <router-link :to="{ name: 'Game', params: {id: game.api_id } }"><img :src="game.image" alt="" class="block w-52"></router-link>
+                <router-link :to="{ name: 'Game', params: {id: game.api_id } }"><img :src="game.image" alt="" class="block w-52 rounded-lg"></router-link>
               </div>
               <details class="w-5/12">
                 <summary class=" text-purple-900 game-listed-title cursor-pointer focus:outline-none">{{ game.title }}</summary>
@@ -34,7 +34,7 @@
           </transition>
         </li>
     </ul>
-    <ul class="bg-purple-900 text-white w-2/12 fixed top-16 z-50 right-0 platforms-listing">
+    <ul class="bg-purple-900 text-white fixed top-16 z-50 right-0 platforms-listing">
       <h3 class="platforms-listing-title text-center py-6 text-2xl bg-purple-600">Collections</h3>
       <img src="../../assets/icons/package.png" alt="package icon for games collection" class="w-32 m-auto mb-6 my-8 block bg-purple-600 p-4 rounded-full">
       <div class="collected-games-counter text-center bg-white  text-xl w-8/12 m-auto p-3 rounded-md mb-8">
@@ -268,6 +268,7 @@ details[open] summary ~ * {
   overflow-y: scroll;
   scrollbar-width: thin;
   height: 91.5vh;
+  width: 15vw;
 }
 
 .platforms-listing:hover {
