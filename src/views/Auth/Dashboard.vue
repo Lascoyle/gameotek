@@ -45,24 +45,31 @@
       <li v-for="(platform, index) in platforms" :key="index" class="border-b-2 text-center border-purple-800 px-6 py-3 hover:bg-purple-600 cursor-pointer" @click="filterGamesByPlatform(platform.name)">{{ platform.name }}</li>
     </ul>
     <ul v-if="filterOff" class="w-11/12 m-auto bg-white">
-      <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> List of all your games ({{ allGamesCounter }})</h2>
-      <li v-for="(game, index) in allGames" :key="index">
+      <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> List of all your games ({{ allGames.length }})</h2>
+      <li v-for="(game, index) in allGames" :key="index" class="hover:bg-gray-100 border-l-8 hover:border-purple-900 cursor-pointer">
         <div class="flex w-full justify-between items-center">
-          <img :src="game.image" alt="" class="w-24">
-          <div class=" w-6/12">{{ game.title }}</div>
-          <div class=" w-3/12">{{ game.platform }}</div>
-          <button @click="deleteGame(game.id)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4"></button>
+          <router-link :to="{ name: 'Game', params: {id: game.api_id } }" class="flex w-full justify-between items-center">
+            <img :src="game.image" alt="" class="w-24">
+            <div class="game-listed-title w-6/12 text-gray-800">{{ game.title }}</div>
+            <div class="w-3/12 text-gray-600">{{ game.platform }}</div>
+          </router-link>
+          <button @click="deleteGame(game.id)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4 mr-6"></button>
         </div>
         <hr>
       </li>
     </ul>
     <ul v-else class="w-11/12 m-auto bg-white">
       <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> Your games on {{ currentPlatform }} ({{ filteredGames.length }}) </h2>
-      <li v-for="(game, index) in filteredGames" :key="index" class="flex w-full justify-between items-center">
-        <img :src="game.image" alt="" class="w-24">
-        <div class=" w-6/12">{{ game.title }}</div>
-        <div class=" w-3/12">{{ game.platform }}</div>
-        <button @click="deleteGame(game.id)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4"></button>
+      <li v-for="(game, index) in filteredGames" :key="index" class="hover:bg-gray-100 border-l-8 hover:border-purple-900 cursor-pointer">
+        <div class="flex w-full justify-between items-center">
+          <router-link :to="{ name: 'Game', params: {id: game.api_id } }" class="flex w-full justify-between items-center">
+            <img :src="game.image" alt="" class="w-24">
+            <div class="game-listed-title w-6/12 text-gray-800">{{ game.title }}</div>
+            <div class="w-3/12 text-gray-600">{{ game.platform }}</div>
+          </router-link>
+          <button @click="deleteGame(game.id)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4 mr-6"></button>
+        </div>
+        <hr>
       </li>
     </ul>
   </div>
@@ -112,7 +119,6 @@ export default {
             let game = doc.data();
             game.id = doc.id;
             this.lastGames.push(game);
-            console.log(this.lastGames)
           })
         }
       });
@@ -122,7 +128,6 @@ export default {
             let game = doc.data();
             game.id = doc.id;
             this.allGames.push(game);
-            console.log(this.allGames)
           })
       });
     },
@@ -130,9 +135,18 @@ export default {
     methods: {
       deleteGame(id) {
         fb.gamesCollection.doc(id).delete();
-        let gameToDelete = this.lastGames.find( game => game.id === id);
-        let index = this.lastGames.indexOf(gameToDelete);
-        this.lastGames.splice(index, 1);
+
+        let lastGameToDelete = this.lastGames.find( game => game.id === id);
+        let indexLastGames = this.lastGames.indexOf(lastGameToDelete);
+        this.lastGames.splice(indexLastGames, 1);
+
+        let allGameToDelete = this.allGames.find( game => game.id === id);
+        let indexAllGames = this.allGames.indexOf(allGameToDelete);
+        this.allGames.splice(indexAllGames, 1);
+
+        let filteredGameToDelete = this.filteredGames.find( game => game.id === id);
+        let indexFilteredGames = this.filteredGames.indexOf(filteredGameToDelete);
+        this.filteredGames.splice(indexFilteredGames, 1);
       },
 
       showPlatformLabel() {
@@ -158,7 +172,6 @@ export default {
       },
 
       filterGamesByPlatform(platform) {
-        console.log(platform);
         this.filterOff = false;
         this.filteredGames = [];
         this.filteredGames = this.allGames.filter((item) => {
@@ -254,6 +267,10 @@ details[open] summary ~ * {
 }
 
 .collected-games-counter {
+  font-family: "Audiowide", cursive;
+}
+
+.game-listed-title {
   font-family: "Audiowide", cursive;
 }
 </style>
