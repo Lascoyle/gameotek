@@ -31,7 +31,7 @@
             </div>
             <button type="submit" class="bg-gray-900 rounded-full text-white px-4 py-2 my-4">Add game to the collection</button>
             <transition name="slide-fade">
-                <div v-if="successStatus === true" class="text-green-400 font-semibold">{{ successMessage}}</div>
+                <div v-if="successStatus === true" class="text-green-400 font-semibold"><img src="../../assets/icons/victory-sign.png" alt="" class="inline-block w-8"> {{ successMessage}}</div>
             </transition>
         </form>
     </div>
