@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
-import * as fb from '../main'
+// import * as fb from '../main'
+import * as fb from '../firestore-conf'
 import router from '../router/index'
 
 export default createStore({

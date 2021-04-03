@@ -37,7 +37,8 @@
 <script>
 import { mapState } from 'vuex'
 import moment from 'moment'
-import * as fb from '../../main'
+// import * as fb from '../../main'
+import * as fb from '../../firestore-conf'
 
 export default {
     name: "GameAdd",
