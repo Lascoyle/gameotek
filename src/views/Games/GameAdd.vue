@@ -30,6 +30,7 @@
                 </select>
             </div>
             <button type="submit" class="bg-gray-900 rounded-full text-white px-4 py-2 my-4">Add game to the collection</button>
+            <span v-if="successStatus === true" class="text-green-400 ml-6 font-semibold">{{ successMessage}}</span>
         </form>
     </div>
 </template>
@@ -52,7 +53,9 @@ export default {
                 released_date: "",
                 platform: "",
                 image: ""
-            }
+            },
+            successStatus: false,
+            successMessage: ""
         }
     },
 
@@ -75,7 +78,6 @@ export default {
         },
 
         changePlatform(event) {
-            console.log(event.target.value)
             this.gameAddForm.platform = event.target.value;
             return this.gameAddForm.platform;
         },
@@ -93,11 +95,9 @@ export default {
                 };
 
                 fb.gamesCollection.add(game)
-                .then(function(docRef) {
-                    console.log("Document written with ID: ", docRef.id);
-                })
 
-                console.log('Game added!!!')
+                this.successStatus = true
+                this.successMessage = game.title + " was successfully added to your " + game.platform + " Collection!"
         }
     }
 }
