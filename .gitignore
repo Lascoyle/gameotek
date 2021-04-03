@@ -3,7 +3,7 @@ node_modules
 /dist
 
 #firebase config
-firebase-conf.js
+firestore-conf.js
 
 # local env files
 .env.local
