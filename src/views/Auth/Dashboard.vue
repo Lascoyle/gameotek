@@ -1,8 +1,8 @@
 <template>
   <div id="profile" class="p-6 lg:p-8 lg:pt-20 h-full">
     <h1 class="profile-title text-4xl lg:pl-16 font-black text-purple-900 lg:mt-10">Welcome {{ user.username }}!</h1>
-    <ul v-if="lastGames.length != 0" class="px-20 py-16">
-        <h2 @click="showLastGames" class="recent-games-list-title text-purple-900 mb-5 cursor-pointer"><span class="recent-games-list-title-arrow inline-block animate-bounce">▼</span> Last games you've added</h2>
+    <ul v-if="lastGames.length != 0" class="w-11/12 m-auto py-16">
+        <h2 @click="showLastGames" class="recent-games-list-title text-purple-900 mb-5 cursor-pointer"><span class="recent-games-list-title-arrow inline-block animate-bounce text-white bg-purple-900 p-2 rounded-full text-2xl">▼</span> Last games you've added</h2>
         <li v-for="(game,index) in lastGames" :key="index" class="relative flex w-full p-4 px-8 justify-between items-center bg-white border-l-8 hover:border-purple-600 hover:bg-gray-50">
           <div v-if="lastGamesShown === false" class="game-hidden w-full absolute z-10 text-gray-400">{{ game.title }}</div>
           <transition name="slide-fade">
@@ -34,20 +34,35 @@
           </transition>
         </li>
     </ul>
-    <ul class="bg-purple-900 text-white w-2/12 fixed top-16 z-50 right-0 platforms-list">
-      <h4 class="absolute text-xl px-1 py-1 text-purple-600">❰❰</h4>
-      <li v-for="(platform, index) in platforms" :key="index" class="ml-7 border-b-2 border-purple-800 px-6 py-3 hover:bg-purple-600 cursor-pointer" @click="filterGamesByPlatform(platform.name)">{{ platform.name }}</li>
+    <ul class="bg-purple-900 text-white w-2/12 fixed top-16 z-50 right-0 platforms-listing">
+      <div class="absolute text-xl px-1 py-1 text-purple-900">❰❰</div>
+      <h3 class="platforms-listing-title text-center py-6 text-2xl bg-purple-600">Collections</h3>
+      <img src="../../assets/icons/package.png" alt="package icon for games collection" class="w-32 m-auto mb-6 my-8 block bg-purple-600 p-4 rounded-full">
+      <div class="collected-games-counter text-center bg-white  text-xl w-8/12 m-auto p-3 rounded-md mb-8">
+        <div class="text-purple-900 text-3xl">{{ allGamesCounter }}</div>
+        <div class="text-gray-400">Games</div>
+      </div>
+      <li v-for="(platform, index) in platforms" :key="index" class="border-b-2 text-center border-purple-800 px-6 py-3 hover:bg-purple-600 cursor-pointer" @click="filterGamesByPlatform(platform.name)">{{ platform.name }}</li>
     </ul>
-    <ul v-if="filterOff">
-      <li v-for="(game, index) in allGames" :key="index" class="flex w-8/12 justify-between">
-        <div>{{ game.title }}</div>
-        <div>{{ game.platform }}</div>
+    <ul v-if="filterOff" class="w-11/12 m-auto bg-white">
+      <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> List of all your games ({{ allGamesCounter }})</h2>
+      <li v-for="(game, index) in allGames" :key="index">
+        <div class="flex w-full justify-between items-center">
+          <img :src="game.image" alt="" class="w-24">
+          <div class=" w-6/12">{{ game.title }}</div>
+          <div class=" w-3/12">{{ game.platform }}</div>
+          <button @click="deleteGame(game.id)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4"></button>
+        </div>
+        <hr>
       </li>
     </ul>
-    <ul v-else>
-      <li v-for="(game, index) in filteredGames" :key="index" class="flex w-8/12 justify-between">
-        <div>{{ game.title }}</div>
-        <div>{{ game.platform }}</div>
+    <ul v-else class="w-11/12 m-auto bg-white">
+      <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> Your games on {{ currentPlatform }} ({{ filteredGames.length }}) </h2>
+      <li v-for="(game, index) in filteredGames" :key="index" class="flex w-full justify-between items-center">
+        <img :src="game.image" alt="" class="w-24">
+        <div class=" w-6/12">{{ game.title }}</div>
+        <div class=" w-3/12">{{ game.platform }}</div>
+        <button @click="deleteGame(game.id)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4"></button>
       </li>
     </ul>
   </div>
@@ -64,13 +79,14 @@ export default {
       return {
         lastGames: new Array,
         allGames: new Array,
-        gamesCounter: new Number,
+        allGamesCounter: new Number,
         platformLabelShown: false,
         releaseLabelShown: false,
         lastGamesShown: false,
         platforms: new Array,
         filterOff: true,
-        filteredGames: new Array
+        filteredGames: new Array,
+        currentPlatform: ""
       }
     },
 
@@ -101,7 +117,7 @@ export default {
         }
       });
       fb.gamesCollection.where("user_id", "==", fb.auth.currentUser.uid).get().then(snap => {
-        this.gamesCounter = snap.size;
+        this.allGamesCounter = snap.size;
         snap.docs.forEach(doc => {
             let game = doc.data();
             game.id = doc.id;
@@ -149,7 +165,8 @@ export default {
           if(item.platform == platform) {
             return item
           }
-        })
+        });
+        this.currentPlatform = platform;
       }
     }
 }
@@ -220,15 +237,23 @@ details[open] summary ~ * {
   }
 }
 
-.platforms-list {
-  transform: translateX(90%);
+.platforms-listing {
+  transform: translateX(95%);
   transition: transform 0.3s linear;
   overflow-y: scroll;
   scrollbar-width: thin;
-  height: 100vh;
+  height: 91.5vh;
 }
 
-.platforms-list:hover {
+.platforms-listing:hover {
   transform: translateX(0%);
+}
+
+.platforms-listing-title {
+  font-family: "Audiowide", cursive;
+}
+
+.collected-games-counter {
+  font-family: "Audiowide", cursive;
 }
 </style>
