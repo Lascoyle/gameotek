@@ -8,7 +8,7 @@
           <transition name="slide-fade">
             <div v-show="lastGamesShown === true" class="w-full flex justify-between items-center">
               <div class="w-52 self-start">
-                <router-link :to="{ name: 'Game', params: {id: game.api_id } }"><img :src="game.image" alt="" class="block h-36"></router-link>
+                <router-link :to="{ name: 'Game', params: {id: game.api_id } }"><img :src="game.image" alt="" class="block w-52"></router-link>
               </div>
               <details class="w-5/12">
                 <summary class=" text-purple-900 game-listed-title cursor-pointer focus:outline-none">{{ game.title }}</summary>
@@ -45,6 +45,7 @@
     </ul>
     <ul v-if="filterOff" class="w-11/12 m-auto bg-white">
       <div @click="sortByTitle(allGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Title</div>
+      <div @click="sortByPlatform(allGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-32 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Platform</div>
       <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> List of all your games ({{ allGames.length }})</h2>
       <li v-for="(game, index) in allGames" :key="index" class="hover:bg-gray-100 border-l-8 hover:border-purple-900 cursor-pointer">
         <div class="flex w-full justify-between items-center">
@@ -59,7 +60,7 @@
       </li>
     </ul>
     <ul v-else class="w-11/12 m-auto bg-white">
-      <div @click="sortByTitle(allGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Title</div>
+      <div @click="sortByTitle(filteredGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Title</div>
       <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> Your games on {{ currentPlatform }} ({{ filteredGames.length }}) </h2>
       <li v-for="(game, index) in filteredGames" :key="index" class="hover:bg-gray-100 border-l-8 hover:border-purple-900 cursor-pointer">
         <div class="flex w-full justify-between items-center">
@@ -94,7 +95,7 @@ export default {
         platforms: new Array,
         filterOff: true,
         filteredGames: new Array,
-        currentPlatform: ""
+        currentPlatform: "",
       }
     },
 
@@ -185,6 +186,11 @@ export default {
 
       sortByTitle(games) {
             games.sort((a,b) => a.title < b.title ? -1 : 1);
+            console.log("sorted")
+        },
+
+        sortByPlatform(games) {
+            games.sort((a,b) => a.platform < b.platform ? -1 : 1);
             console.log("sorted")
         },
     }
