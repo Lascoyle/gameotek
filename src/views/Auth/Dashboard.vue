@@ -87,7 +87,6 @@
 
 <script>
 import { mapState } from 'vuex'
-// import * as fb from '../../main'
 import * as fb from '../../firestore-conf'
 
 export default {
