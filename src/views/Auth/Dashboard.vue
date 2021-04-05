@@ -3,7 +3,7 @@
     <h1 class="profile-title text-4xl lg:pl-16 font-black text-purple-900 lg:mt-10">Welcome {{ user.username }}!</h1>
     <ul v-if="lastGames.length != 0" class="w-11/12 m-auto py-16">
         <h2 @click="showLastGames" class="recent-games-list-title text-purple-900 mb-5 cursor-pointer"><span class="recent-games-list-title-arrow inline-block animate-bounce text-white bg-purple-900 p-2 rounded-full text-2xl">▼</span> Last games you've added</h2>
-        <li v-for="(game,index) in lastGames" :key="index" class="relative flex w-full p-4 px-8 justify-between items-center bg-white border-l-8 hover:border-purple-600 hover:bg-gray-50">
+        <li v-for="(game,index) in lastGames" :key="index" class="relative flex w-full p-4 px-8 justify-between items-center bg-white border-l-8 border-purple-200  hover:border-purple-600 hover:bg-purple-50">
           <div v-if="lastGamesShown === false" class="game-hidden w-full absolute z-10 text-gray-400">{{ game.title }}</div>
           <transition name="slide-fade">
             <div v-show="lastGamesShown === true" class="w-full flex justify-between items-center">
@@ -29,7 +29,7 @@
                   <p v-if="releaseLabelShown === index" class="text-white bg-gray-700 text-center rounded-lg w-8/12 absolute left-12 p-1">Release</p>
                 </transition>
               </div>
-              <button @click="deleteGame(game.id)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-6"></button>
+              <button @click="deleteGame(game.id, index, game)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-6"></button>
             </div>
           </transition>
         </li>
@@ -51,14 +51,20 @@
         <div>{{ allGames.length }} Games</div>
       </div>
       <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> List of all your games</h2>
-      <li v-for="(game, index) in allGames" :key="index" class="hover:bg-gray-100 border-l-8 hover:border-purple-900 cursor-pointer">
+      <li v-for="(game, index) in allGames" :key="index" class="hover:bg-purple-50 border-l-8 border-purple-200  hover:border-purple-900 cursor-pointer">
+        <transition name="slide-fade">
+          <div v-if="gameDeleted === index" @click="closeDeleteMessage" class="text-red-600 text-center bg-gray-50 py-4 flex justify-center items-center hover:bg-red-200 font-medium">
+            <img src="../../assets/icons/delete-red.png" alt="red dete icon" class="w-4 h-4 mr-2">
+            <div>{{ deleteMessage }}</div>
+          </div>
+        </transition>
         <div class="flex w-full justify-between items-center">
           <router-link :to="{ name: 'Game', params: {id: game.api_id } }" class="flex w-full justify-between items-center">
             <img :src="game.image" alt="" class="w-24">
             <div class="game-listed-title w-6/12 text-gray-800">{{ game.title }}</div>
             <div class="w-3/12 text-gray-600">{{ game.platform }}</div>
           </router-link>
-          <button @click="deleteGame(game.id)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4 mr-6"></button>
+          <button @click="deleteGame(game.id, index, game)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4 mr-6"></button>
         </div>
         <hr>
       </li>
@@ -70,14 +76,20 @@
         <div>{{ filteredGames.length }} Games</div>
       </div>
       <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> Your games on {{ currentPlatform }} ({{ filteredGames.length }}) </h2>
-      <li v-for="(game, index) in filteredGames" :key="index" class="hover:bg-gray-100 border-l-8 hover:border-purple-900 cursor-pointer">
+      <li v-for="(game, index) in filteredGames" :key="index" class="hover:bg-purple-50 border-l-8 border-purple-200 hover:border-purple-900 cursor-pointer">
+        <transition name="slide-fade">
+          <div v-if="gameDeleted === index" @click="closeDeleteMessage" class="text-red-600 text-center bg-gray-50 py-4 flex justify-center items-center hover:bg-red-200 font-medium">
+            <img src="../../assets/icons/delete-red.png" alt="red dete icon" class="w-4 h-4 mr-2">
+            <div>{{ deleteMessage }}</div>
+          </div>
+        </transition>
         <div class="flex w-full justify-between items-center">
           <router-link :to="{ name: 'Game', params: {id: game.api_id } }" class="flex w-full justify-between items-center">
             <img :src="game.image" alt="" class="w-24">
             <div class="game-listed-title w-6/12 text-gray-800">{{ game.title }}</div>
             <div class="w-3/12 text-gray-600">{{ game.platform }}</div>
           </router-link>
-          <button @click="deleteGame(game.id)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4 mr-6"></button>
+          <button @click="deleteGame(game.id, index, game)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4 mr-6"></button>
         </div>
         <hr>
       </li>
@@ -102,7 +114,8 @@ export default {
         filterOff: true,
         filteredGames: new Array,
         currentPlatform: "",
-        deleteMessage: ""
+        deleteMessage: "",
+        gameDeleted: null
       }
     },
 
@@ -144,7 +157,7 @@ export default {
     },
 
     methods: {
-      deleteGame(id) {
+      deleteGame(id, index, game) {
         fb.gamesCollection.doc(id).delete();
 
         let lastGameToDelete = this.lastGames.find( game => game.id === id);
@@ -158,6 +171,14 @@ export default {
         let filteredGameToDelete = this.filteredGames.find( game => game.id === id);
         let indexFilteredGames = this.filteredGames.indexOf(filteredGameToDelete);
         this.filteredGames.splice(indexFilteredGames, 1);
+
+        this.gameDeleted = index;
+
+        this.deleteMessage = game.title + " have been removed from " + game.platform + " collection!"
+      },
+
+      closeDeleteMessage() {
+        this.gameDeleted = null;
       },
 
       showPlatformLabel(index) {
