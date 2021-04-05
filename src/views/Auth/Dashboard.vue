@@ -38,15 +38,19 @@
       <h3 class="platforms-listing-title text-center py-6 text-2xl bg-purple-600">Collections</h3>
       <img src="../../assets/icons/package.png" alt="package icon for games collection" class="w-32 m-auto mb-6 my-8 block bg-purple-600 p-4 rounded-full">
       <div class="collected-games-counter text-center bg-white  text-xl w-8/12 m-auto p-3 rounded-md mb-8">
-        <div class="text-purple-900 text-3xl">{{ allGamesCounter }}</div>
+        <div class="text-purple-900 text-3xl">{{ allGames.length }}</div>
         <div class="text-gray-400">Games</div>
       </div>
       <li v-for="(platform, index) in platforms" :key="index" class="border-b-2 text-center border-purple-800 px-6 py-3 hover:bg-purple-600 cursor-pointer" @click="filterGamesByPlatform(platform.name)">{{ platform.name }}</li>
     </ul>
-    <ul v-if="filterOff" class="w-11/12 m-auto bg-white">
+    <ul v-if="filterOff" class="w-11/12 m-auto bg-white p-12">
       <div @click="sortByTitle(allGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Title</div>
       <div @click="sortByPlatform(allGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-32 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Platform</div>
-      <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> List of all your games ({{ allGames.length }})</h2>
+      <div class="float-right text-gray-300 text-md text-center py-1 px-4 m-4 rounded-full  border-2 border-gray-300 flex justify-between items-center">
+        <img src="../../assets/icons/game-gray.png" alt="gray disk icon" class="w-4 h-4 block mr-1">
+        <div>{{ allGames.length }} Games</div>
+      </div>
+      <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> List of all your games</h2>
       <li v-for="(game, index) in allGames" :key="index" class="hover:bg-gray-100 border-l-8 hover:border-purple-900 cursor-pointer">
         <div class="flex w-full justify-between items-center">
           <router-link :to="{ name: 'Game', params: {id: game.api_id } }" class="flex w-full justify-between items-center">
@@ -59,8 +63,12 @@
         <hr>
       </li>
     </ul>
-    <ul v-else class="w-11/12 m-auto bg-white">
+    <ul v-else class="w-11/12 m-auto bg-white p-12">
       <div @click="sortByTitle(filteredGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Title</div>
+      <div class="float-right text-gray-300 text-md text-center py-1 px-4 m-4 rounded-full border-2 border-gray-300 flex justify-between items-center">
+        <img src="../../assets/icons/game-gray.png" alt="gray disk icon" class="w-4 h-4 block mr-1">
+        <div>{{ filteredGames.length }} Games</div>
+      </div>
       <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> Your games on {{ currentPlatform }} ({{ filteredGames.length }}) </h2>
       <li v-for="(game, index) in filteredGames" :key="index" class="hover:bg-gray-100 border-l-8 hover:border-purple-900 cursor-pointer">
         <div class="flex w-full justify-between items-center">
@@ -88,7 +96,6 @@ export default {
       return {
         lastGames: new Array,
         allGames: new Array,
-        allGamesCounter: new Number,
         platformLabelShown: false,
         releaseLabelShown: false,
         lastGamesShown: false,
@@ -96,6 +103,7 @@ export default {
         filterOff: true,
         filteredGames: new Array,
         currentPlatform: "",
+        deleteMessage: ""
       }
     },
 
@@ -125,7 +133,6 @@ export default {
         }
       });
       fb.gamesCollection.where("user_id", "==", fb.auth.currentUser.uid).get().then(snap => {
-        this.allGamesCounter = snap.size;
         snap.docs.forEach(doc => {
             let game = doc.data();
             game.id = doc.id;
