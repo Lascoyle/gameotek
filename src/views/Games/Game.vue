@@ -210,7 +210,7 @@ export default {
         },
 
         formatDate(value) {
-            value = moment(value).format('MMMM Do YYYY');
+            value = moment(value).format('MMMM dddd Do YYYY');
             return value;
         }
     }
