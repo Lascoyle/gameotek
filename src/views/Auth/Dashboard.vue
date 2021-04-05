@@ -170,7 +170,7 @@ export default {
       showLastGames() {
         this.lastGamesShown = !this.lastGamesShown;
         let arrow = document.querySelector('.recent-games-list-title-arrow');
-        arrow.classList.add('arrow-rotation');
+        arrow.classList.toggle('arrow-rotation');
       },
 
       filterGamesByPlatform(platform) {
