@@ -5,9 +5,13 @@
             <h1 class="currentgame-title text-white bottom-0 right-4 absolute">{{ game.name }}</h1>
         </div>
         <div class="currentgame-overview w-full md:flex justify-between">
-            <article class="currentgame-description-container w-8/12 p-20">
-            <router-link :to="{ name: 'GameAdd', params: {id: game.id}}" class="text-4xl font-extrabold float-right text-gray-400 bg-gray-100 border-4 border-gray-200 rounded-full pb-4 pt-2 px-5 hover:text-white hover:bg-purple-900 hover:border-purple-600 transition duration-500 ease-in-out" v-if="loggedIn">+</router-link>
+            <article class="currentgame-description-container w-10/12 p-20">
+            <router-link :to="{ name: 'GameAdd', params: {id: game.id}}" class="add-game-link text-4xl font-extrabold float-right text-gray-400 bg-gray-100 border-4 border-gray-200 rounded-full pb-4 pt-4 px-7 hover:text-white hover:bg-purple-900 hover:border-purple-600 transition duration-500 ease-in-out" v-if="loggedIn">+</router-link>
                 <h2 class="currentgame-description-title leading-snug mb-10 text-purple-900 ">{{ game.name }}</h2>
+                <div class="flex justify-end items-center mb-8">
+                    <img src="../../assets/icons/calendar.png" alt="calendar icon" class="w-6 h-6 block mr-2">
+                    <div class="text-xl text-gray-400 font-medium ">Released on {{ formatDate(game.released) }}</div>
+                </div>
                 <div v-html="game.description" class="currentgame-description p-16 leading-loose text-gray-600 text-lg bg-white bg-opacity-50 mb-20"></div>
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Screenshots of {{ game.name }}</h3>
                 <div class="flex flex-wrap my-12">
@@ -142,6 +146,7 @@
 // import axios from 'axios'
 import { mapState } from 'vuex'
 import * as firebase from 'firebase/app'
+import moment from 'moment'
 export default {
     name: "Game",
     data() {
@@ -203,6 +208,11 @@ export default {
         refreshGame () {
             this.$store.commit('getGame')
         },
+
+        formatDate(value) {
+            value = moment(value).format('MMMM Do YYYY');
+            return value;
+        }
     }
 }
 </script>
@@ -210,6 +220,7 @@ export default {
 <style>
 #currentgame {
     animation: fadeIn 500ms linear forwards;
+    font-family: 'Prompt', sans-serif;
 }
 
 @keyframes fadeIn{
@@ -254,6 +265,9 @@ export default {
     }
 }
 
+.add-game-link {
+    font-family: "Audiowide", cursive;
+}
 
 .currentgame-description-title {
     font-family: 'Audiowide', cursive;
@@ -261,7 +275,6 @@ export default {
 }
 
 .currentgame-description {
-    font-family: 'Prompt', sans-serif;
     height: 400px;
     overflow-y: scroll;
     scrollbar-width: thin;
