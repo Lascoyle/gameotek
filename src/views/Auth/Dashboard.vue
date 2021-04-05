@@ -18,15 +18,15 @@
                 </div>
               </details>
               <div class="w-2/12 text-gray-700 font-medium cursor-default relative">
-                <p @mouseover="showPlatformLabel" @mouseleave="unshowPlatformLabel" class="">{{ game.platform }}</p>
+                <p @mouseover="showPlatformLabel(index)" @mouseleave="unshowPlatformLabel()" class="">{{ game.platform }}</p>
                 <transition name="fade">
-                  <p v-if="platformLabelShown === true" class="text-white bg-gray-700 text-center rounded-lg w-6/12 absolute left-4 p-1">Platform</p>
+                  <p v-if="platformLabelShown === index" class="text-white bg-gray-700 text-center rounded-lg w-6/12 absolute left-4 p-1">Platform</p>
                 </transition>
               </div>
               <div class="w-1/12 text-gray-400 cursor-default relative">
-                <p @mouseover="showReleaseLabel" @mouseleave="unshowReleaseLabel">{{ game.released_date }}</p>
+                <p @mouseover="showReleaseLabel(index)" @mouseleave="unshowReleaseLabel()">{{ game.released_date }}</p>
                 <transition name="fade">
-                  <p v-if="releaseLabelShown === true" class="text-white bg-gray-700 text-center rounded-lg w-8/12 absolute left-12 p-1">Release</p>
+                  <p v-if="releaseLabelShown === index" class="text-white bg-gray-700 text-center rounded-lg w-8/12 absolute left-12 p-1">Release</p>
                 </transition>
               </div>
               <button @click="deleteGame(game.id)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-6"></button>
@@ -96,8 +96,8 @@ export default {
       return {
         lastGames: new Array,
         allGames: new Array,
-        platformLabelShown: false,
-        releaseLabelShown: false,
+        platformLabelShown: null,
+        releaseLabelShown: null,
         lastGamesShown: false,
         platforms: new Array,
         filterOff: true,
@@ -158,16 +158,16 @@ export default {
         this.filteredGames.splice(indexFilteredGames, 1);
       },
 
-      showPlatformLabel() {
-        this.platformLabelShown = true;
+      showPlatformLabel(index) {
+        this.platformLabelShown = index;
       },
 
       unshowPlatformLabel() {
         this.platformLabelShown = false;
       },
 
-      showReleaseLabel() {
-        this.releaseLabelShown = true;
+      showReleaseLabel(index) {
+        this.releaseLabelShown = index;
       },
 
       unshowReleaseLabel() {
