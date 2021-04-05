@@ -71,11 +71,12 @@
     </ul>
     <ul v-else class="w-11/12 m-auto bg-white p-12">
       <div @click="sortByTitle(filteredGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Title</div>
+      <div @click="returnAllGames" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">All Games</div>
       <div class="float-right text-gray-300 text-md text-center py-1 px-4 m-4 rounded-full border-2 border-gray-300 flex justify-between items-center">
         <img src="../../assets/icons/game-gray.png" alt="gray disk icon" class="w-4 h-4 block mr-1">
         <div>{{ filteredGames.length }} Games</div>
       </div>
-      <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> Your games on {{ currentPlatform }} ({{ filteredGames.length }}) </h2>
+      <h2 class="text-3xl mb-8 text-purple-900"><img src="../../assets/icons/list.png" alt="" class="w-12 p-3 inline-block bg-purple-900"> Your games on {{ currentPlatform }} </h2>
       <li v-for="(game, index) in filteredGames" :key="index" class="hover:bg-purple-50 border-l-8 border-purple-200 hover:border-purple-900 cursor-pointer">
         <transition name="slide-fade">
           <div v-if="gameDeleted === index" @click="closeDeleteMessage" class="text-red-600 text-center bg-gray-50 py-4 flex justify-center items-center hover:bg-red-200 font-medium">
