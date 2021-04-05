@@ -41,7 +41,7 @@
         <div class="text-purple-900 text-3xl">{{ allGames.length }}</div>
         <div class="text-gray-400">Games</div>
       </div>
-      <li v-for="(platform, index) in platforms" :key="index" class="border-b-2 text-center border-purple-800 px-6 py-3 hover:bg-purple-600 cursor-pointer" @click="filterGamesByPlatform(platform.name)">{{ platform.name }}</li>
+      <li v-for="(platform, index) in sortedPlatforms" :key="index" class="border-b-2 text-center border-purple-800 px-6 py-3 hover:bg-purple-600 cursor-pointer" @click="filterGamesByPlatform(platform.name)">{{ platform.name }}</li>
     </ul>
     <ul v-if="filterOff" class="w-11/12 m-auto bg-white p-12">
       <div @click="sortByTitle(allGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Title</div>
@@ -113,6 +113,9 @@ export default {
           user: state => state.userProfile
         }
       ),
+      sortedPlatforms: function() {
+        return this.platforms.sort((a,b) => a.name < b.name ? -1 : 1)
+      }
     },
 
     mounted() {
