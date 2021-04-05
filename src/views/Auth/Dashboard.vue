@@ -20,13 +20,13 @@
               <div class="w-2/12 text-gray-700 font-medium cursor-default relative">
                 <p @mouseover="showPlatformLabel(index)" @mouseleave="unshowPlatformLabel()" class="">{{ game.platform }}</p>
                 <transition name="fade">
-                  <p v-if="platformLabelShown === index" class="text-white bg-gray-700 text-center rounded-lg w-6/12 absolute left-4 p-1">Platform</p>
+                  <p v-if="platformLabelShown === index" class="text-white bg-gray-800 text-center rounded-lg w-6/12 absolute left-4 p-1">Platform</p>
                 </transition>
               </div>
               <div class="w-1/12 text-gray-400 cursor-default relative">
                 <p @mouseover="showReleaseLabel(index)" @mouseleave="unshowReleaseLabel()">{{ game.released_date }}</p>
                 <transition name="fade">
-                  <p v-if="releaseLabelShown === index" class="text-white bg-gray-700 text-center rounded-lg w-8/12 absolute left-12 p-1">Release</p>
+                  <p v-if="releaseLabelShown === index" class="text-white bg-gray-800 text-center rounded-lg w-8/12 absolute left-12 p-1">Release</p>
                 </transition>
               </div>
               <button @click="deleteGame(game.id, index, game)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-6"></button>
@@ -37,7 +37,7 @@
     <ul class="bg-purple-900 text-white fixed top-16 z-50 right-0 platforms-listing">
       <h3 class="platforms-listing-title text-center py-6 text-2xl bg-purple-600">Collections</h3>
       <img src="../../assets/icons/package.png" alt="package icon for games collection" class="w-32 m-auto mb-6 my-8 block bg-purple-600 p-4 rounded-full">
-      <div class="collected-games-counter text-center bg-white  text-xl w-8/12 m-auto p-3 rounded-md mb-8">
+      <div @click="returnAllGames" class="collected-games-counter text-center bg-white  text-xl w-8/12 m-auto p-3 rounded-md mb-8 cursor-pointer">
         <div class="text-purple-900 text-3xl">{{ allGames.length }}</div>
         <div class="text-gray-400">Games</div>
       </div>
@@ -212,6 +212,10 @@ export default {
           }
         });
         this.currentPlatform = platform;
+      },
+
+      returnAllGames() {
+        this.filterOff = true;
       },
 
       sortByTitle(games) {
