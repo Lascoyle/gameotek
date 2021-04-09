@@ -6,13 +6,13 @@
         </div>
         <div class="currentgame-overview w-full md:flex justify-between">
             <article class="currentgame-description-container w-10/12 p-20">
-            <router-link :to="{ name: 'GameAdd', params: {id: game.id}}" class="add-game-link text-4xl font-extrabold float-right text-gray-400 bg-gray-100 border-4 border-gray-200 rounded-full pb-4 pt-4 px-7 hover:text-white hover:bg-purple-900 hover:border-purple-600 transition duration-500 ease-in-out" v-if="loggedIn">+</router-link>
+            <router-link :to="{ name: 'GameAdd', params: {id: game.id}}" class="add-game-link text-4xl font-extrabold float-right text-purple-600 bg-gray-100 border-4 border-purple-300 rounded-full pb-4 pt-4 px-7 hover:text-white hover:bg-purple-900 hover:border-purple-600 transition duration-500 ease-in-out" v-if="loggedIn">+</router-link>
                 <h2 class="currentgame-description-title leading-snug mb-10 text-purple-900 ">{{ game.name }}</h2>
                 <div class="flex justify-end items-center mb-8">
                     <img src="../../assets/icons/calendar.png" alt="calendar icon" class="w-6 h-6 block mr-2">
                     <div class="text-xl text-purple-900 font-medium ">Released on {{ formatDate(game.released) }}</div>
                 </div>
-                <div v-html="game.description" class="currentgame-description p-16 leading-loose text-gray-600 text-lg bg-white bg-opacity-50 mb-20"></div>
+                <div v-html="game.description" class="currentgame-description p-16 leading-loose text-gray-600 text-lg bg-white mb-20 rounded-lg"></div>
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Screenshots of {{ game.name }}</h3>
                 <div class="flex flex-wrap my-12">
                     <div v-for="(screenshot, index) in screenshots" :key="index" class="w-4/12 p-1 currentgame-screenshot-container relative">
@@ -278,8 +278,10 @@ export default {
     height: 400px;
     overflow-y: scroll;
     scrollbar-width: thin;
+    scrollbar-color: #A78BFA #DDD6FE;
     text-align: justify;
 }
+
 
 .currentgame-description > p {
     margin-bottom: 40px;
