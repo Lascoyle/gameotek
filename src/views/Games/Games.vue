@@ -1,8 +1,8 @@
 <template>
     <section id="all-games" class="p-6 lg:p-8 lg:pt-20 text-white h-full">
         <h1 class="games-title text-4xl lg:pl-16 font-black mb-10 text-purple-900 lg:mt-10">All Games</h1>
-        <div  class="previous-games hover:text-purple-600 text-gray-300" @click="callPreviousPage()">❰</div>
-        <div class="next-games hover:text-purple-600 text-gray-300" @click="callNextPage()">❱</div>
+        <div  class="previous-games hover:text-purple-600 text-purple-400" @click="callPreviousPage()">❰</div>
+        <div class="next-games hover:text-purple-600 text-purple-400" @click="callNextPage()">❱</div>
         <div class="order-elmts flex justify-end items-center w-full mr-20 my-10">
             <div class="search ml-4 mr-12">
                 <input class="text-gray-600 rounded-full rounded-r-none border-r-0 border-4 focus:outline-none focus:bg-gray-900 focus:text-white transition duration-75 ease-linear p-2" type="text" placeholder="Search a game..." :value="queryGame" @keyup.enter="fetchGames">
@@ -35,7 +35,7 @@
                     </div>
                 </router-link>
                 <div class="game-textual card-header bg-white rounded-b-lg">
-                    <header class="card-header p-4">
+                    <header class="card-header   p-4">
                         <div class="flex justify-between">
                             <router-link :to="{ name: 'Game', params: {id: game.id} }"><h2 class="game-name text-gray-500 text-2xl font-black w-10/12 mb-5">{{ game.name }}</h2></router-link>
                             <p class="game-rating"><span class="text-purple-500 font-bold text-3xl">{{ Math.round(game.rating) }}</span><span class="text-green-400 font-black text-xl">/{{ game.rating_top }}</span></p>
