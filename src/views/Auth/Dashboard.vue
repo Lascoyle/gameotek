@@ -1,5 +1,6 @@
 <template>
   <div id="profile" class="p-6 lg:p-8 lg:pt-20 h-full">
+    <button class="bg-red-600 text-white rounded-md p-4" @click="deleteAccount">Delete Account</button>
     <h1 class="profile-title text-4xl lg:pl-16 font-black text-purple-900 lg:mt-10">Welcome {{ user.username }}!</h1>
     <ul v-if="lastGames.length != 0" class="w-11/12 m-auto py-16">
         <h2 @click="showLastGames" class="recent-games-list-title text-purple-900 mb-5 cursor-pointer"><span class="recent-games-list-title-arrow inline-block animate-bounce text-white bg-purple-900 p-2 rounded-full text-2xl">▼</span> Last games you've added</h2>
@@ -101,6 +102,7 @@
 <script>
 import { mapState } from 'vuex'
 import * as fb from '../../firestore-conf'
+import { auth } from '../../firestore-conf'
 
 export default {
     name: "Profile",
@@ -220,14 +222,20 @@ export default {
       },
 
       sortByTitle(games) {
-            games.sort((a,b) => a.title < b.title ? -1 : 1);
-            console.log("sorted")
-        },
+        games.sort((a,b) => a.title < b.title ? -1 : 1);
+        console.log("sorted")
+      },
 
-        sortByPlatform(games) {
-            games.sort((a,b) => a.platform < b.platform ? -1 : 1);
-            console.log("sorted")
-        },
+      sortByPlatform(games) {
+        games.sort((a,b) => a.platform < b.platform ? -1 : 1);
+        console.log("sorted")
+      },
+
+      deleteAccount() {
+        auth.currentUser.delete().then(function() {
+          console.log("User has been deleted!!!");
+        });
+      }
     }
 }
 </script>

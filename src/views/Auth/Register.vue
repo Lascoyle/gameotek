@@ -4,6 +4,7 @@
         <form @submit.prevent="signup" class="p-20 bg-white h-full w-7/12 flex flex-col justify-between items-center">
             <div class="form-input-group h-full flex flex-col justify-start mt-8 w-11/12 rounded-xl rounded-l-none">
                 <h2 class="text-4xl text-purple-900 register-title mb-16">Register</h2>
+                <div v-if="errorMessage != null" class="text-red-600"> {{ errorMessage }}</div>
                 <hr>
                 <div class="username py-3">
                     <label for="username" name="email" class="text-purple-900 font-semibold text-lg">Username</label>
@@ -33,7 +34,8 @@ export default {
                 username: "",
                 email: "",
                 password: "",
-            }
+            },
+            errorMessage: null
         }
     },
     methods: {
@@ -43,6 +45,7 @@ export default {
                 email: this.signupForm.email,
                 password: this.signupForm.password
             })
+            .catch( error => {this.errorMessage = error.message})
         }
     }
 }

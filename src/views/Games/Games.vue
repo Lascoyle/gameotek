@@ -8,10 +8,12 @@
                 <input class="text-gray-600 rounded-full rounded-r-none border-r-0 border-4 focus:outline-none focus:bg-gray-900 focus:text-white transition duration-75 ease-linear p-2" type="text" placeholder="Search a game..." :value="queryGame" @keyup.enter="fetchGames">
                 <img src="../../assets/icons/search.svg" alt="" class="h-12 inline-block bg-white absolute border-4 border-l-0 rounded-full rounded-l-none p-2">
             </div>
-            <div @click="sortByName()" class="order-elmt rounded-full transition duration-150 cursor-pointer hover:bg-gray-400 ease-linear bg-gray-900 font-bold p-3 px-4 ml-4">
-                Order by name
+            <div @click="sortByName()" class="order-elmt rounded-full transition duration-150 cursor-pointer hover:bg-gray-400 ease-linear bg-gray-900 font-bold p-3 px-4 ml-4 flex">
+                <img src="../../assets/icons/alphabetical.png" alt="" class="w-6 h-6 block mr-2">
+                Order by Name
             </div>
-            <div class=" order-elmt rounded-full transition duration-150 ease-linear cursor-pointer hover:bg-gray-400 bg-gray-900 font-bold mr-20 ml-4 p-3 px-4" @click="fetchPlatforms()">
+            <div class=" order-elmt rounded-full transition duration-150 ease-linear cursor-pointer hover:bg-gray-400 bg-gray-900 font-bold mr-20 ml-4 p-3 px-4 flex" @click="fetchPlatforms()">
+                <img src="../../assets/icons/console.png" alt="" class="w-6 h-6 block mr-2">
                 <p>Platforms</p>
             </div>
         </div>
