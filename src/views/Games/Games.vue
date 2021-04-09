@@ -34,10 +34,10 @@
                         <img v-else src="../../assets/images/no-image.png" alt="" class="game-image block">
                     </div>
                 </router-link>
-                <div class="game-textual card-header bg-gray-200 rounded-b-lg">
-                    <header class="card-header bg-gray-300 p-4">
+                <div class="game-textual card-header bg-white rounded-b-lg">
+                    <header class="card-header p-4">
                         <div class="flex justify-between">
-                            <router-link :to="{ name: 'Game', params: {id: game.id} }"><h2 class="game-name text-2xl font-black w-10/12 mb-5">{{ game.name }}</h2></router-link>
+                            <router-link :to="{ name: 'Game', params: {id: game.id} }"><h2 class="game-name text-gray-500 text-2xl font-black w-10/12 mb-5">{{ game.name }}</h2></router-link>
                             <p class="game-rating"><span class="text-purple-500 font-bold text-3xl">{{ Math.round(game.rating) }}</span><span class="text-green-400 font-black text-xl">/{{ game.rating_top }}</span></p>
                         </div>
                         <div v-if="loggedIn" class="text-md text-gray-500 cursor-pointer "><span class="font-bold text-white bg-gray-500 px-2 rounded-full">✚</span> <span class="hover:underline"><router-link :to="{ name: 'GameAdd', params: {id: game.id}}">Add to collection</router-link></span></div>
