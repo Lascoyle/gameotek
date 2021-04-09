@@ -169,6 +169,11 @@ export default {
         position: fixed;
         font-size: 3rem;
         top: 50%;
+        transition: text-shadow 0.1s linear;
+    }
+
+    .previous-games:hover, .next-games:hover {
+        text-shadow: 4px 4px rgba(95, 95, 95, 0.452);
     }
 
     .next-games {

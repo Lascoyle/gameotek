@@ -269,7 +269,7 @@ export default {
 }
 
 @keyframes arrowRotation {
-  to {
+  from {
     transform: rotate(0deg);
   }
   to {
