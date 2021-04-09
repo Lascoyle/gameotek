@@ -63,7 +63,8 @@
           <router-link :to="{ name: 'Game', params: {id: game.api_id } }" class="flex w-full justify-between items-center">
             <img :src="game.image" alt="" class="w-24">
             <div class="game-listed-title w-6/12 text-gray-800">{{ game.title }}</div>
-            <div class="w-3/12 text-gray-600">{{ game.platform }}</div>
+            <div class="w-2/12 text-gray-600">{{ game.platform }}</div>
+            <div class="w-2/12 text-gray-400">{{ game.condition }}</div>
           </router-link>
           <button @click="deleteGame(game.id, index, game)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4 mr-6"></button>
         </div>
@@ -89,7 +90,8 @@
           <router-link :to="{ name: 'Game', params: {id: game.api_id } }" class="flex w-full justify-between items-center">
             <img :src="game.image" alt="" class="w-24">
             <div class="game-listed-title w-6/12 text-gray-800">{{ game.title }}</div>
-            <div class="w-3/12 text-gray-600">{{ game.platform }}</div>
+            <div class="w-2/12 text-gray-600">{{ game.platform }}</div>
+            <div class="w-2/12 text-gray-400">{{ game.condition }}</div>
           </router-link>
           <button @click="deleteGame(game.id, index, game)"><img src="../../assets/icons/delete.png" alt="delete icon" class="w-4 mr-6"></button>
         </div>

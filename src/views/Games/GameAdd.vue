@@ -28,8 +28,15 @@
                 <div class="game-add-platform py-3 text-gray-700 font-semibold w-full">
                     <label for="game-add-platform" name="game-add-platform" class="block py-2">Game Platform :</label>
                     <select name="game-add-platform" @change="changePlatform($event)" v-model="gameAddForm.platform" class="w-3/12">
-                        <option value="">Select a platform...</option>
+                        <option value="">Choose a platform...</option>
                         <option v-for="(addPlatform, index) in addPlatforms" :key="index" >{{ addPlatform.name }}</option>
+                    </select>
+                </div>
+                <div class="game-add-condition py-3 text-gray-700 font-semibold w-full">
+                    <label for="game-add-condition" name="game-add-condition" class="block py-2">Game Condition :</label>
+                    <select name="game-add-condition" @change="changeCondition($event)" v-model="gameAddForm.condition" class="w-3/12">
+                        <option value="">Select a condition...</option>
+                        <option v-for="(addCondition, index) in addConditions" :key="index" >{{ addCondition }}</option>
                     </select>
                 </div>
                 <button type="submit" class="bg-gray-900 rounded-full text-white px-4 py-2 my-4">Add game to the collection</button>
@@ -52,13 +59,15 @@ export default {
     data() {
         return {
             addPlatforms:[],
+            addConditions: ['Mint', 'Good', 'No Notice', 'Loose' ],
             gameAddForm: {
                 id: "",
                 title: "",
                 description: "",
                 released_date: "",
                 platform: "",
-                image: ""
+                image: "",
+                condition: ""
             },
             successStatus: false,
             successMessage: ""
@@ -88,6 +97,11 @@ export default {
             return this.gameAddForm.platform;
         },
 
+        changeCondition(event) {
+            this.gameAddForm.condition = event.target.value;
+            return this.gameAddForm.condition;
+        },
+
         async addGame() {
                 const game = {
                     api_id: this.gameAddForm.id,
@@ -96,6 +110,7 @@ export default {
                     image: this.gameAddForm.image,
                     released_date: this.gameAddForm.released_date,
                     platform: this.gameAddForm.platform,
+                    condition: this.gameAddForm.condition,
                     user_id: fb.auth.currentUser.uid,
                     created_on: new Date()
                 };
