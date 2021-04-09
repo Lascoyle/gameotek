@@ -4,7 +4,7 @@
         <form @submit.prevent="signup" class="p-20 bg-white h-full w-7/12 flex flex-col justify-between items-center">
             <div class="form-input-group h-full flex flex-col justify-start mt-8 w-11/12 rounded-xl rounded-l-none">
                 <h2 class="text-4xl text-purple-900 register-title mb-16">Register</h2>
-                <div v-if="errorMessage != null" class="text-red-600"> {{ errorMessage }}</div>
+                <div v-if="errorMessage != null" class="text-red-600 font-medium"> {{ errorMessage }}</div>
                 <hr>
                 <div class="username py-3">
                     <label for="username" name="email" class="text-purple-900 font-semibold text-lg">Username</label>
@@ -19,7 +19,7 @@
                     <input type="password" v-model="signupForm.password" placeholder="Please enter your password..." class="text-gray-400 border-4 focus:outline-none focus:border-purple-400 rounded-full w-full h-12 px-4">
                 </div>
                 <span class="text-gray-600">Already registered? Click here to <router-link to= "/login" class="underline border-none hover:text-green-400 text-purple-900">login</router-link> to your account!</span>
-                <button type="submit" class="text-lg self-end justify-end mt-6 text-white font-semibold bg-gray-900 rounded-full p-2 px-4 ">Register</button>
+                <button type="submit" class="text-lg self-end justify-end mt-6 text-white font-semibold bg-gray-900 rounded-full p-2 px-4">Register</button>
             </div>
         </form>
     </section>

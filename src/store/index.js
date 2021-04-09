@@ -114,8 +114,10 @@ export default createStore({
       // set user profile in state
       commit('setUserProfile', userProfile.data())
 
+
       // change route to dashboard
-      // router.push({name: 'Dashboard'})
+      let id = userProfile.data().username;
+      router.push({name: 'Dashboard', params: { id: id }});
 
       if (router.currentRoute.path === '/login') {
         router.push('/')
