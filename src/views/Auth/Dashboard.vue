@@ -2,8 +2,8 @@
   <div id="profile" class="p-6 lg:p-8 lg:pt-20 h-full">
     <button class="bg-red-600 text-white rounded-md p-4" @click="deleteAccount">Delete Account</button>
     <h1 class="profile-title text-4xl lg:pl-16 font-black text-purple-900 lg:mt-10">Welcome {{ user.username }}!</h1>
-    <ul v-if="lastGames.length != 0" class="w-11/12 m-auto py-16">
-        <h2 @click="showLastGames" class="recent-games-list-title text-purple-900 mb-5 cursor-pointer"><span class="recent-games-list-title-arrow inline-block animate-bounce text-white bg-purple-900 p-2 rounded-full text-2xl">▼</span> Last games you've added</h2>
+    <ul v-if="lastGames.length != 0" class="w-11/12 m-auto py-8 my-12 rounded-lg bg-white">
+        <h2 @click="showLastGames" class="recent-games-list-title ml-10 text-purple-900 mb-5 cursor-pointer"><span class="recent-games-list-title-arrow inline-block animate-bounce text-white bg-purple-900 p-2 rounded-full text-2xl">▼</span> Last games you've added</h2>
         <li v-for="(game,index) in lastGames" :key="index" class="relative flex w-full p-4 px-8 justify-between items-center bg-white border-l-8 border-purple-200  hover:border-purple-600 hover:bg-purple-50">
           <div v-if="lastGamesShown === false" class="game-hidden w-full absolute z-10 text-gray-400">{{ game.title }}</div>
           <transition name="slide-fade">
@@ -44,7 +44,7 @@
       </div>
       <li v-for="(platform, index) in sortedPlatforms" :key="index" class="border-b-2 text-center border-purple-800 px-6 py-3 hover:bg-purple-600 cursor-pointer" @click="filterGamesByPlatform(platform.name)">{{ platform.name }}</li>
     </ul>
-    <ul v-if="filterOff" class="w-11/12 m-auto bg-white p-12">
+    <ul v-if="filterOff" class="w-11/12 m-auto bg-white p-12 rounded-lg">
       <div @click="sortByTitle(allGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Title</div>
       <div @click="sortByPlatform(allGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-32 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Platform</div>
       <div class="float-right text-gray-300 text-md text-center py-1 px-4 m-4 rounded-full  border-2 border-gray-300 flex justify-between items-center">
@@ -70,7 +70,7 @@
         <hr>
       </li>
     </ul>
-    <ul v-else class="w-11/12 m-auto bg-white p-12">
+    <ul v-else class="w-11/12 m-auto bg-white p-12 rounded-lg">
       <div @click="sortByTitle(filteredGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Title</div>
       <div @click="returnAllGames" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">All Games</div>
       <div class="float-right text-gray-300 text-md text-center py-1 px-4 m-4 rounded-full border-2 border-gray-300 flex justify-between items-center">

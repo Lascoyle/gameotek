@@ -10,7 +10,7 @@
                 <h2 class="currentgame-description-title leading-snug mb-10 text-purple-900 ">{{ game.name }}</h2>
                 <div class="flex justify-end items-center mb-8">
                     <img src="../../assets/icons/calendar.png" alt="calendar icon" class="w-6 h-6 block mr-2">
-                    <div class="text-xl text-gray-400 font-medium ">Released on {{ formatDate(game.released) }}</div>
+                    <div class="text-xl text-purple-900 font-medium ">Released on {{ formatDate(game.released) }}</div>
                 </div>
                 <div v-html="game.description" class="currentgame-description p-16 leading-loose text-gray-600 text-lg bg-white bg-opacity-50 mb-20"></div>
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Screenshots of {{ game.name }}</h3>
