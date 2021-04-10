@@ -19,7 +19,6 @@
                         <a :href="screenshot.image" target="_blank"><img :src="screenshot.image" alt="game's screenshot" class="block rounded-lg relative currentgame-screenshot"></a>
                         <img src="../../assets/icons/zoom.svg" class="zoom-screenshot w-9 absolute bottom-3 right-4 text-white opacity-40 font-bold">
                     </div>
-                    <!-- <iframe :src="game.clip.clip" width="30%" allow="fullscreen" frameborder="0" class="ml-2"></iframe> -->
                 </div>
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Similar games</h3>
                 <div class="flex flex-wrap my-12">
@@ -143,7 +142,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
 import { mapState } from 'vuex'
 import * as firebase from 'firebase/app'
 import moment from 'moment'
@@ -356,7 +354,6 @@ export default {
 }
 
 .background-layer {
-    /* height: 130vh; */
     background-color: #170725a4;
     background-blend-mode: darken;
 }

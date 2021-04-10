@@ -40,12 +40,6 @@
                             <router-link :to="{ name: 'Game', params: {id: game.id} }"><h2 class="game-name text-gray-500 text-2xl font-black w-10/12 mb-5">{{ game.name }}</h2></router-link>
                             <p class="game-rating"><span class="text-purple-500 font-bold text-4xl">{{ Math.round(game.rating) }}</span><span class="text-gray-300 font-bold text-xl">/{{ game.rating_top }}</span></p>
                         </div>
-                        <!-- <div v-if="loggedIn" class="text-md text-gray-500 cursor-pointer ">
-                            <span class="font-bold text-white bg-gray-500 px-2 rounded-full">✚</span>
-                            <span class="hover:underline">
-                                <router-link :to="{ name: 'GameAdd', params: {id: game.id}}">Add to collection</router-link>
-                            </span>
-                        </div> -->
                         <div class="w-full flex justify-between items-center">
                             <div class="text-purple-500 font-semibold text-sm">
                                  <div>{{ formatDate(game.released) }}</div>
@@ -265,6 +259,6 @@ export default {
         }
     }
     @media screen and (min-width: 1536px) {
-        
+
     }
 </style>

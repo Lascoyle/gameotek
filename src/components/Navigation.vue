@@ -19,7 +19,6 @@
 
 <script>
 import { mapState } from 'vuex'
-// import * as firebase from 'firebase/app'
 import { auth } from '../firestore-conf'
 export default {
     name: 'Navigation',
