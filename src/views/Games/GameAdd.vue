@@ -51,7 +51,6 @@
 <script>
 import { mapState } from 'vuex'
 import moment from 'moment'
-// import * as fb from '../../main'
 import * as fb from '../../firestore-conf'
 
 export default {
@@ -59,7 +58,7 @@ export default {
     data() {
         return {
             addPlatforms:[],
-            addConditions: ['Mint', 'Good', 'No Notice', 'Loose' ],
+            addConditions: [ 'Mint', 'Good', 'No Notice', 'Loose', 'Dematerialized' ],
             gameAddForm: {
                 id: "",
                 title: "",
