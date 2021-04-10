@@ -52,6 +52,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "profile" */ '../views/Auth/Dashboard.vue'),
     meta: {requiresAuth: true}
   },
+
+  {
+    path: '/settings/:id',
+    name : 'Settings',
+    component: () => import(/* webpackChunkName: "settings" */ '../views/Auth/Settings.vue'),
+    meta: {requiresAuth: true}
+  },
 ]
 
 const router = createRouter({

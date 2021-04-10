@@ -6,12 +6,15 @@
           <router-link to="/games" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Games</router-link>
           <router-link to="/platforms" class="nav-link text-white text-xl focus:outline-none mx-3" exact>Platforms</router-link>
         </div>
-          <img src="../assets/icons/gameotek2.png" alt="application logo" class="w-18 mt-8">
+        <img src="../assets/icons/gameotek2.png" alt="application logo" class="w-18 mt-8">
         <div>
           <router-link to="/login" class="nav-link text-white text-xl focus:outline-none mx-3" exact v-if="loggedIn">Login</router-link>
           <router-link to="/register" class="nav-link text-white text-xl focus:outline-none mx-3" exact v-if="loggedIn">Register</router-link>
-          <router-link :to="{ name: 'Dashboard', params: {id: userProfile.username}}" class="nav-link text-white text-xl focus:outline-none mx-3" exact v-if="!loggedIn">{{ userProfile.username }}</router-link>
+          <router-link :to="{ name: 'Dashboard', params: {id: userProfile.username}}" class="nav-link text-white text-xl focus:outline-none mx-4" exact v-if="!loggedIn">{{ userProfile.username }}</router-link>
           <button @click="signOut" class="logout text-purple-800 text-lg bg-white px-4 py-1 rounded-full" v-if="!loggedIn">Sign Out</button>
+          <router-link :to="{ name: 'Settings', params: {id: userProfile.username } }" exact v-if="!loggedIn" class="border-0">
+            <img src="../assets/icons/settings.png" alt="settings mechanicals icon" class="nav-link inline-block w-8 mx-4">
+          </router-link>
         </div>
     </div>
   </nav>
