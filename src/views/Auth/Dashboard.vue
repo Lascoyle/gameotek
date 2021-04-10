@@ -1,6 +1,5 @@
 <template>
   <div id="profile" class="p-6 lg:p-8 lg:pt-20 h-full">
-    <button class="bg-red-600 text-white rounded-md p-4" @click="deleteAccount">Delete Account</button>
     <h1 class="profile-title text-4xl lg:pl-16 font-black text-purple-900 lg:mt-10">Welcome {{ user.username }}!</h1>
     <ul v-if="lastGames.length != 0" class="w-11/12 m-auto py-8 my-12 rounded-lg bg-white">
         <h2 @click="showLastGames" class="recent-games-list-title ml-10 text-purple-900 mb-5 cursor-pointer"><span class="recent-games-list-title-arrow inline-block animate-bounce text-white bg-purple-900 p-2 rounded-full text-2xl">▼</span> Last games you've added</h2>
@@ -231,12 +230,6 @@ export default {
       sortByPlatform(games) {
         games.sort((a,b) => a.platform < b.platform ? -1 : 1);
         console.log("sorted")
-      },
-
-      deleteAccount() {
-        auth.currentUser.delete().then(function() {
-          console.log("User has been deleted!!!");
-        });
       }
     }
 }
