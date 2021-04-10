@@ -38,18 +38,32 @@
                     <header class="card-header p-4">
                         <div class="flex justify-between">
                             <router-link :to="{ name: 'Game', params: {id: game.id} }"><h2 class="game-name text-gray-500 text-2xl font-black w-10/12 mb-5">{{ game.name }}</h2></router-link>
-                            <p class="game-rating"><span class="text-purple-500 font-bold text-3xl">{{ Math.round(game.rating) }}</span><span class="text-green-400 font-black text-xl">/{{ game.rating_top }}</span></p>
+                            <p class="game-rating"><span class="text-purple-500 font-bold text-4xl">{{ Math.round(game.rating) }}</span><span class="text-gray-300 font-bold text-xl">/{{ game.rating_top }}</span></p>
                         </div>
-                        <div v-if="loggedIn" class="text-md text-gray-500 cursor-pointer "><span class="font-bold text-white bg-gray-500 px-2 rounded-full">✚</span> <span class="hover:underline"><router-link :to="{ name: 'GameAdd', params: {id: game.id}}">Add to collection</router-link></span></div>
+                        <!-- <div v-if="loggedIn" class="text-md text-gray-500 cursor-pointer ">
+                            <span class="font-bold text-white bg-gray-500 px-2 rounded-full">✚</span>
+                            <span class="hover:underline">
+                                <router-link :to="{ name: 'GameAdd', params: {id: game.id}}">Add to collection</router-link>
+                            </span>
+                        </div> -->
+                        <div class="w-full flex justify-between items-center">
+                            <div class="text-purple-500 font-semibold text-sm">
+                                 <div>{{ formatDate(game.released) }}</div>
+                            </div>
+                            <router-link :to="{ name: 'GameAdd', params: {id: game.id}}">
+                                <div class="font-bold text-xl border-2 pt-1 border-purple-600 text-purple-500 text-center rounded-full w-10 h-10 float cursor-pointer hover:bg-purple-500 hover:border-purple-500 hover:text-white transition duration-500 ease-in-out">✚</div>
+                            </router-link>
+                        </div>
                     </header>
+                    <hr class="w-10/12 m-auto">
                    <div class="p-4 card-body ">
                         <ul class="genres-list flex flex-wrap justify-end font-semibold">
-                                <li class="genre text-sm text-green-400 p-1" v-for="(genre, index) in game.genres" :key="index">
+                                <li class="genre text-sm text-purple-500 p-1" v-for="(genre, index) in game.genres" :key="index">
                                     {{ genre.name }}
                                 </li>
                         </ul>
                         <ul class="platforms-list flex flex-wrap justify-end mt-5">
-                            <li class="platform text-xs bg-gray-400 p-1 px-3 rounded-full text-center m-1" v-for="(platform, index) in game.platforms" :key="index">
+                            <li class="platform text-xs bg-gray-300 p-1 px-3 rounded-full text-center m-1" v-for="(platform, index) in game.platforms" :key="index">
                                     {{ platform.platform.name }}
                             </li>
                         </ul>
@@ -62,6 +76,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex"
+import moment from 'moment'
 import * as firebase from 'firebase/app'
 
 export default {
@@ -127,6 +142,11 @@ export default {
         hidePlatforms() {
             this.fetchedPlatforms = false;
         },
+
+        formatDate(value) {
+            value = moment(value).format('MMMM Do YYYY');
+            return value;
+        }
     }
 }
 </script>
