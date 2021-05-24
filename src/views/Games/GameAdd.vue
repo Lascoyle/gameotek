@@ -29,7 +29,7 @@
                     <label for="game-add-platform" name="game-add-platform" class="block py-2">Game Platform :</label>
                     <select name="game-add-platform" @change="changePlatform($event)" v-model="gameAddForm.platform" class="w-3/12">
                         <option value="">Choose a platform...</option>
-                        <option v-for="(addPlatform, index) in addPlatforms" :key="index" >{{ addPlatform.name }}</option>
+                        <option v-for="(platform, index) in platforms" :key="index" >{{ platform.name }}</option>
                     </select>
                 </div>
                 <div class="game-add-condition py-3 text-gray-700 font-semibold w-full">
@@ -57,7 +57,7 @@ export default {
     name: "GameAdd",
     data() {
         return {
-            addPlatforms:[],
+            // addPlatforms:[],
             addConditions: [ 'Mint', 'Good', 'No Notice', 'Loose', 'Dematerialized' ],
             gameAddForm: {
                 id: "",
@@ -74,15 +74,24 @@ export default {
     },
 
     computed: {
-        ...mapState(['game','userProfile'] ),
+        ...mapState(
+            // ['game','userProfile'],
+            {
+                platforms: state => state.platforms,
+                game: state => state.game,
+                userProfile: state => state.userProfile,
+            }
+        ),
+
     },
 
     mounted() {
         this.$store.dispatch('getGame', this.$route.params.id);
-        axios
-            .get(`https://api.rawg.io/api/platforms`)
-            .then(response => {this.addPlatforms = response.data.results})
-            .catch(error => console.log(error));
+        this.$store.dispatch("getPlatforms");
+        // axios
+        //     .get(`https://api.rawg.io/api/platforms`)
+        //     .then(response => {this.addPlatforms = response.data.results})
+        //     .catch(error => console.log(error));
     },
 
     methods: {

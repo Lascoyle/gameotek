@@ -8,7 +8,7 @@
                 <input class="text-gray-600 rounded-full rounded-r-none border-r-0 border-4 border-purple-300 focus:outline-none focus:bg-gray-900 focus:text-white transition duration-75 ease-linear p-2" type="text" placeholder="Search a game..." :value="queryGame" @keyup.enter="fetchGames">
                 <img src="../../assets/icons/search.svg" alt="" class="h-12 inline-block bg-white absolute border-4 border-purple-300 border-l-0 rounded-full rounded-l-none p-2">
             </div>
-            <div @click="sortByName()" class="order-elmt rounded-full transition duration-150 cursor-pointer hover:bg-gray-400 ease-linear bg-gray-900 font-bold p-3 px-4 ml-4 flex">
+            <div @click="sortGamesByName()" class="order-elmt rounded-full transition duration-150 cursor-pointer hover:bg-gray-400 ease-linear bg-gray-900 font-bold p-3 px-4 ml-4 flex">
                 <img src="../../assets/icons/alphabetical.png" alt="" class="w-6 h-6 block mr-2">
                 Order by Name
             </div>
@@ -22,12 +22,12 @@
                 <div class="platforms-closer hover:opacity-100 text-white" @click="hidePlatforms()">X</div>
                 <h3 class="text-2xl mb-8">Platforms List</h3>
                 <ul class="platforms-list flex flex-wrap w-full">
-                    <li v-for="(platform, index) in platforms.results" :key="index" class="platforms-list-elmt w-2/12 border-green-400 hover:text-green-400 text-xs leading-relaxed p-1">{{ platform.name }}</li>
+                    <li v-for="(platform, index) in platforms" :key="index" class="platforms-list-elmt w-2/12 border-green-400 hover:text-green-400 text-xs leading-relaxed p-1">{{ platform.name }}</li>
                 </ul>
             </div>
         </transition>
         <ul class="games-list h-full flex flex-column justify-center lg:flex-row flex-wrap lg:px-16">
-            <li class="game-card w-12/12 sm:w-6/12 lg:w-4/12 xl:w-3/12 p-4" v-for="(game, index) in games.results" :key="index">
+            <li class="game-card w-12/12 sm:w-6/12 lg:w-4/12 xl:w-3/12 p-4" v-for="(game, index) in games" :key="index">
                 <router-link :to="{ name: 'Game', params: { id: game.id } }">
                     <div class="game-image-container rounded-t-lg bg-gray-300">
                         <img v-if="game.background_image != null" :src="game.background_image" alt="" class="game-image block">
@@ -77,10 +77,10 @@ export default {
     name: "Games",
     data() {
         return {
-            platforms: [],
+            // platforms: [],
             queryGame: "",
             fetchedPlatforms: false,
-            loggedIn: false
+            loggedIn: false,
         }
     },
 
@@ -88,6 +88,7 @@ export default {
         ...mapState(
             {
                 games: state => state.games,
+                platforms: state => state.platforms,
                 queryGame: state => state.queryGame
             }
         )
@@ -95,10 +96,7 @@ export default {
 
     mounted() {
         this.$store.dispatch('getGames');
-        axios
-            .get(`https://api.rawg.io/api/platforms`)
-            .then(response => {this.platforms = response.data})
-            .catch(error => console.log(error));
+         this.$store.dispatch("getPlatforms");
     },
 
     created() {
@@ -114,7 +112,7 @@ export default {
     methods: {
 
         ...mapMutations([
-            "callNextPage", "callPreviousPage"
+            "callNextPage", "callPreviousPage", "sortGamesByName"
         ]),
 
         ...mapActions([
@@ -125,9 +123,9 @@ export default {
             this.$store.commit('fetchGames', event.target.value)
         },
 
-        sortByName() {
-            this.games.results.sort((a,b) => a.name < b.name ? -1 : 1);
-        },
+        // sortByName() {
+        //     this.games.results.sort((a,b) => a.name < b.name ? -1 : 1);
+        // },
 
         fetchPlatforms() {
             this.fetchedPlatforms = true;

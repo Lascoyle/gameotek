@@ -3,7 +3,7 @@
       <h1 class="all-platforms-title text-4xl lg:pl-16 font-black mb-10 text-purple-900 lg:mt-10">All Platforms</h1>
 
       <ul class="platforms-list p-10 flex flex-wrap w-full text-white">
-          <li class="platform w-6/12 p-8" v-for="(platform, index) in platforms.results" :key="index">
+          <li class="platform w-6/12 p-8" v-for="(platform, index) in platforms" :key="index">
             <div class="platform-container relative rounded-lg">
                 <img :src="platform.image_background" alt="" class="block w-full absolte opacity-20 rounded-lg h-96 scale-50 overflow-hidden">
                   <div class="platform-text absolute top-8 left-12 rounded-lg h-2/3">

@@ -20,15 +20,17 @@
                         <img src="../../assets/icons/zoom.svg" class="zoom-screenshot w-9 absolute bottom-3 right-4 text-white opacity-40 font-bold">
                     </div>
                 </div>
-                <h3 class="currentgame-gallery text-purple-900 leading-tight">Similar games</h3>
+
+                <h3 class="currentgame-gallery text-purple-900 leading-tight">Game Series</h3>
                 <div class="flex flex-wrap my-12">
-                    <div v-for="(suggestion, index) in suggestions" :key="index" class="w-64 p-1 currentgame-suggestions-container relative">
-                        <router-link :to="{ name: 'Game', params: { id: suggestion.id}}" replace @click="refreshGame">
-                            <img :src="suggestion.background_image" alt="game's suggestions" class="block rounded-lg relative currentgame-suggestions" @mouseenter="suggestionTitle = true" @mouseleave="suggestionTitle = false">
-                            <div v-show="suggestionTitle" class="suggestion-name absolute top-1/3 w-52 text-center text-lg text-white font-bold opacity-80">{{ suggestion.name }}</div>
+                    <div v-for="(gameSerie, index) in gameSeries" :key="index" class="w-64 p-1 currentgame-suggestions-container relative">
+                        <router-link :to="{ name: 'Game', params: { id: gameSerie.id}}" replace @click="refreshGame">
+                            <img :src="gameSerie.background_image" alt="game's suggestions" class="block rounded-lg relative currentgame-suggestions" @mouseenter="gameSerieTitle = true" @mouseleave="gameSerieTitle = false">
+                            <div v-show="gameSerieTitle" class="suggestion-name absolute top-1/3 w-52 text-center text-lg text-white font-bold opacity-80">{{ gameSerie.name }}</div>
                         </router-link>
                     </div>
                 </div>
+
                 <h3 class="currentgame-creators-title text-purple-900 leading-tight">Creators</h3>
                 <div class="currentgame-creators-container py-20 w-full">
                         <ul class="currentgame-creators w-full">
@@ -150,8 +152,7 @@ export default {
     data() {
         return {
             screenshots: [],
-            suggestions: [],
-            suggestionTitle: false,
+            gameSerieTitle: false,
             creators: [],
             gameSeries: [],
             loggedIn: false
@@ -178,29 +179,24 @@ export default {
         this.$store.dispatch('getGame', this.$route.params.id);
 
         axios
-        .get(`https://api.rawg.io/api/games/${this.$route.params.id}/screenshots`)
+        .get(`http://localhost:3000/game-screenshots/${this.$route.params.id}`)
         .then(response => {this.screenshots = response.data.results})
         .catch(error => console.log(error));
 
         axios
-        .get(`https://api.rawg.io/api/games/${this.$route.params.id}/suggested`)
-        .then(response => {this.suggestions = response.data.results})
-        .catch(error => console.log(error));
-
-        axios
-        .get(`https://api.rawg.io/api/games/${this.$route.params.id}/development-team`)
+        .get(`http://localhost:3000/game-dev-team/${this.$route.params.id}`)
         .then(response => {this.creators = response.data.results})
         .catch(error => console.log(error));
 
         axios
-        .get(`https://api.rawg.io/api/games/${this.$route.params.id}/game-series`)
+        .get(`http://localhost:3000/game-series/${this.$route.params.id}`)
         .then(response => {this.gameSeries = response.data.results})
         .catch(error => console.log(error));
     },
 
     methods: {
-        showSuggestionTitle() {
-            this.suggestionTitle = true
+        showGameSerieTitle() {
+            this.gameSerieTitle = true
         },
 
         refreshGame () {

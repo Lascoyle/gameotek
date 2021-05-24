@@ -20,7 +20,7 @@
         <button class="bg-purple-900 text-white font-semibold p-3 rounded-lg">Save Changes</button>
       </div>
       <div v-if="filePreview!=null" class="w-4/12 ml-16 relative h-64">
-        <button @click="onUpload" class="absolute text-sm text-purple-500 bg-white border-purple-500 border-2 px-4 py-1 rounded-full bottom-0 hover:bg-purple-500 hover:text-white transition delay-150 duration-300 ease-in-out focus:outline-none">Upload</button>
+        <!-- <button @click="onUpload" class="absolute text-sm text-purple-500 bg-white border-purple-500 border-2 px-4 py-1 rounded-full bottom-0 hover:bg-purple-500 hover:text-white transition delay-150 duration-300 ease-in-out focus:outline-none">Upload</button> -->
         <img class="preview block rounded-full h-64 w-64 overflow-hidden" :src="avatar">
       </div>
     </form>
@@ -29,7 +29,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import * as fb from '../../firestore-conf'
+// import * as fb from '../../firestore-conf'
 import { auth, storage } from '../../firestore-conf'
 
 export default {
@@ -65,6 +65,7 @@ export default {
     previewAvatar(event) {
       // this.avatar = null;
       this.filePreview = event.target.files[0];
+      this.onUpload()
     },
 
     onUpload(){

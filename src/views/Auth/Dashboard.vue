@@ -41,7 +41,7 @@
         <div class="text-purple-900 text-3xl">{{ allGames.length }}</div>
         <div class="text-gray-400">Games</div>
       </div>
-      <li v-for="(platform, index) in sortedPlatforms" :key="index" class="border-b-2 text-center border-purple-800 px-6 py-3 hover:bg-purple-600 cursor-pointer" @click="filterGamesByPlatform(platform.name)">{{ platform.name }}</li>
+      <li v-for="(platform, index) in platforms" :key="index" class="border-b-2 text-center border-purple-800 px-6 py-3 hover:bg-purple-600 cursor-pointer" @click="filterGamesByPlatform(platform.name)">{{ platform.name }}</li>
     </ul>
     <ul v-if="filterOff" class="w-11/12 m-auto bg-white p-12 rounded-lg">
       <div @click="sortByTitle(allGames)" class="bg-purple-500 float-right text-white text-xs text-center font-semibold p-1 py-2 m-4 rounded-full w-28 cursor-pointer hover:bg-white border-white border-2 hover:border-purple-500 hover:text-purple-500 transition delay-150 duration-300 ease-in-out">Sort By Title</div>
@@ -114,7 +114,7 @@ export default {
         platformLabelShown: null,
         releaseLabelShown: null,
         lastGamesShown: false,
-        platforms: new Array,
+        // platforms: new Array,
         filterOff: true,
         filteredGames: new Array,
         currentPlatform: "",
@@ -126,7 +126,8 @@ export default {
     computed: {
       ...mapState(
         {
-          user: state => state.userProfile
+          user: state => state.userProfile,
+          platforms: state => state.platforms,
         }
       ),
       sortedPlatforms: function() {
@@ -135,10 +136,11 @@ export default {
     },
 
     mounted() {
-      axios
-        .get(`https://api.rawg.io/api/platforms`)
-        .then(response => {this.platforms = response.data.results})
-        .catch(error => console.log(error));
+      this.$store.dispatch("getPlatforms");
+      // axios
+      //   .get(`https://api.rawg.io/api/platforms`)
+      //   .then(response => {this.platforms = response.data.results})
+      //   .catch(error => console.log(error));
     },
 
     created() {

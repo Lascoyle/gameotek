@@ -11,6 +11,9 @@ export default createStore({
     queryGame: "",
     game: {},
 
+    apiUrlGames: 'http://localhost:3000/games',
+    apiUrlPlatforms: 'http://localhost:3000/platforms',
+
     platforms: [],
     queryPlatform: "",
 
@@ -20,7 +23,8 @@ export default createStore({
   mutations: {
     getGames() {
       axios
-      .get(`https://api.rawg.io/api/games?&page_size=40`)
+      // .get(`https://api.rawg.io/api/games?&page_size=40`)
+      .get(`${ this.state.apiUrlGames }`)
       .then(response => {this.state.games = response.data})
       .catch(error => console.log(error));
     },
@@ -28,7 +32,8 @@ export default createStore({
     callNextPage() {
       this.state.currentPage = this.state.currentPage + this.state.changePage;
       axios
-      .get(`https://api.rawg.io/api/games?page=${this.state.currentPage}&page_size=40`)
+      // .get(`https://api.rawg.io/api/games?page=${this.state.currentPage}&page_size=40`)
+      .get(`${ this.state.apiUrlGames }?page=${this.state.currentPage}&page_size=40`)
       .then(response => {this.state.games = response.data})
       .catch(error => console.log(error));
       window.scrollTo({
@@ -42,7 +47,8 @@ export default createStore({
       {
           this.state.currentPage = this.state.currentPage - this.state.changePage;
           axios
-          .get(`https://api.rawg.io/api/games?page=${this.state.currentPage}&page_size=40`)
+          // .get(`https://api.rawg.io/api/games?page=${this.state.currentPage}&page_size=40`)
+          .get(`${ this.state.apiUrlGames }?page=${this.state.currentPage}&page_size=40`)
           .then(response => {this.state.games = response.data})
           .catch(error => console.log(error));
           window.scrollTo({
@@ -52,10 +58,15 @@ export default createStore({
         }
     },
 
+    sortGamesByName() {
+      this.state.games.sort((a,b) => a.name < b.name ? -1 : 1);
+    },
+
     fetchGames(state, queryGame) {
       state.queryGame = queryGame;
       axios
-      .get(`https://api.rawg.io/api/games?search=${this.state.queryGame}&page_size=40`)
+      // .get(`https://api.rawg.io/api/games?search=${this.state.queryGame}&page_size=40`)
+      .get(`${ this.state.apiUrlGames }?search=${this.state.queryGame}&page_size=40`)
       .then(response => {this.state.games = response.data})
       .catch(error => console.log(error));
       console.log(queryGame);
@@ -64,14 +75,16 @@ export default createStore({
     getGame(state, id) {
       state.game = {};
       axios
-      .get(`https://api.rawg.io/api/games/${id}`)
+      // .get(`https://api.rawg.io/api/games/${id}`)
+      .get(`http://localhost:3000/game/${id}`)
       .then(response => {this.state.game = response.data})
       .catch(error => console.log(error));
     },
 
     getPlatforms() {
       axios
-      .get(`https://api.rawg.io/api/platforms`)
+      // .get(`https://api.rawg.io/api/platforms`)
+      .get(`${ this.state.apiUrlPlatforms }`)
       .then(response => {this.state.platforms = response.data})
       .catch(error => console.log(error));
     },
