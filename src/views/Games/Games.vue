@@ -21,8 +21,9 @@
             <div v-show="fetchedPlatforms" class="platforms-list-container w-11/12 m-auto p-12 px-16 rounded-lg content-between">
                 <div class="platforms-closer hover:opacity-100 text-white" @click="hidePlatforms()">X</div>
                 <h3 class="text-2xl mb-8">Platforms List</h3>
-                <ul class="platforms-list flex flex-wrap w-full">
-                    <li v-for="(platform, index) in platforms" :key="index" class="platforms-list-elmt w-2/12 border-green-400 hover:text-green-400 text-xs leading-relaxed p-1">{{ platform.name }}</li>
+                <hr>
+                <ul class="platforms-list flex flex-col h-80 flex-wrap w-full mt-4">
+                    <li v-for="(platform, index) in sortedPlatforms" :key="index" class="platforms-list-elmt w-2/12 border-green-400 hover:text-green-400 text-xs leading-relaxed p-1 my-1">{{ platform.name }}</li>
                 </ul>
             </div>
         </transition>
@@ -77,7 +78,6 @@ export default {
     name: "Games",
     data() {
         return {
-            // platforms: [],
             queryGame: "",
             fetchedPlatforms: false,
             loggedIn: false,
@@ -91,7 +91,10 @@ export default {
                 platforms: state => state.platforms,
                 queryGame: state => state.queryGame
             }
-        )
+        ),
+        sortedPlatforms: function() {
+        return this.platforms.sort((a,b) => a.name < b.name ? -1 : 1)
+      }
     },
 
     mounted() {
@@ -122,10 +125,6 @@ export default {
         fetchGames (event) {
             this.$store.commit('fetchGames', event.target.value)
         },
-
-        // sortByName() {
-        //     this.games.results.sort((a,b) => a.name < b.name ? -1 : 1);
-        // },
 
         fetchPlatforms() {
             this.fetchedPlatforms = true;
