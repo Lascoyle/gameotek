@@ -23,10 +23,11 @@
 
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Game Series</h3>
                 <div class="flex flex-wrap my-12">
-                    <div v-for="(gameSerie, index) in gameSeries" :key="index" class="w-64 p-1 currentgame-suggestions-container relative">
+                    <div v-for="(gameSerie, index) in gameSeries" :key="index" class="w-72 h-44 overflow-hidden currentgame-suggestions-container relative rounded-lg m-1">
                         <router-link :to="{ name: 'Game', params: { id: gameSerie.id}}" replace @click="refreshGame">
-                            <img :src="gameSerie.background_image" alt="game's suggestions" class="block rounded-lg relative currentgame-suggestions" @mouseenter="gameSerieTitle = true" @mouseleave="gameSerieTitle = false">
-                            <div v-show="gameSerieTitle" class="suggestion-name absolute top-1/3 w-52 text-center text-lg text-white font-bold opacity-80">{{ gameSerie.name }}</div>
+                            <!-- <img :src="gameSerie.background_image" alt="game's suggestions" class="block currentgame-suggestions h-44 w-72 overflow-hidden" @mouseenter="gameSerieTitle = true" @mouseleave="gameSerieTitle = false"> -->
+                            <img :src="gameSerie.background_image" alt="game's suggestions" class="block currentgame-suggestions h-44 w-72 overflow-hidden" @mouseover="showGameSerieTitle(index)" @mouseleave="hideGameSerieTitle">
+                            <div v-show="gameSerieTitleShown === index" class="suggestion-name absolute w-52 text-center text-lg text-white font-bold opacity-80">{{ gameSerie.name }}</div>
                         </router-link>
                     </div>
                 </div>
@@ -152,7 +153,7 @@ export default {
     data() {
         return {
             screenshots: [],
-            gameSerieTitle: false,
+            gameSerieTitleShown: false,
             creators: [],
             gameSeries: [],
             loggedIn: false
@@ -195,8 +196,12 @@ export default {
     },
 
     methods: {
-        showGameSerieTitle() {
-            this.gameSerieTitle = true
+        showGameSerieTitle(index) {
+            this.gameSerieTitleShown = index
+        },
+
+        hideGameSerieTitle() {
+            this.gameSerieTitleShown = false
         },
 
         refreshGame () {
@@ -312,7 +317,8 @@ export default {
 .suggestion-name {
     font-family: "Audiowide", cursive;
     left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }
 
 .currentgame-suggestions {
