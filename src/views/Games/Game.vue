@@ -298,11 +298,11 @@ export default {
     font-size: 3rem;
 }
 
-.currentgame-screenshot {
+.currentgame-screenshot-container {
     transition: 0.5s ease-out;
 }
 
-.currentgame-screenshot:hover {
+.currentgame-screenshot-container:hover {
     transform: scale(1.15);
     filter:contrast(1.15);
     z-index: 3000;
