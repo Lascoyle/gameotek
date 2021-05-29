@@ -14,7 +14,7 @@
                 </div>
                 <div v-html="game.description" class="currentgame-description p-16 leading-loose text-gray-600 text-lg bg-white mb-20 rounded-lg"></div>
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Screenshots of {{ game.name }}</h3>
-                <div class="flex flex-wrap my-12">
+                <div class="flex flex-wrap py-1 ">
                     <div v-for="(screenshot, index) in screenshots" :key="index" class="w-4/12 p-1 currentgame-screenshot-container relative">
                         <a :href="screenshot.image" target="_blank"><img :src="screenshot.image" alt="game's screenshot" class="block rounded-lg relative currentgame-screenshot"></a>
                         <img src="../../assets/icons/zoom.svg" class="zoom-screenshot w-9 absolute bottom-3 right-4 text-white opacity-40 font-bold">
@@ -22,10 +22,9 @@
                 </div>
 
                 <h3 class="currentgame-gallery text-purple-900 leading-tight">Game Series</h3>
-                <div class="flex flex-wrap my-12">
+                <div class="flex flex-wrap py-10">
                     <div v-for="(gameSerie, index) in gameSeries" :key="index" class="w-72 h-44 overflow-hidden currentgame-suggestions-container relative rounded-lg m-1">
                         <router-link :to="{ name: 'Game', params: { id: gameSerie.id}}" replace @click="refreshGame">
-                            <!-- <img :src="gameSerie.background_image" alt="game's suggestions" class="block currentgame-suggestions h-44 w-72 overflow-hidden" @mouseenter="gameSerieTitle = true" @mouseleave="gameSerieTitle = false"> -->
                             <img :src="gameSerie.background_image" alt="game's suggestions" class="block currentgame-suggestions h-44 w-72 overflow-hidden" @mouseover="showGameSerieTitle(index)" @mouseleave="hideGameSerieTitle">
                             <div v-show="gameSerieTitleShown === index" class="suggestion-name absolute w-52 text-center text-lg text-white font-bold opacity-80">{{ gameSerie.name }}</div>
                         </router-link>
@@ -33,9 +32,9 @@
                 </div>
 
                 <h3 class="currentgame-creators-title text-purple-900 leading-tight">Creators</h3>
-                <div class="currentgame-creators-container py-20 w-full">
+                <div class="currentgame-creators-container py-10 w-full">
                         <ul class="currentgame-creators w-full">
-                            <li :style="{ backgroundImage: 'url(' + creator.image_background + ')'}" class="currentgame-creator w-2/3 bg-center bg-cover bg-no-repeat rounded-lg py-9 px-8 flex mb-4 relative" v-for="(creator, index) in creators" :key="index">
+                            <li :style="{ backgroundImage: 'url(' + creator.image_background + ')'}" class="currentgame-creator w-3/4 bg-center bg-cover bg-no-repeat rounded-lg py-9 px-8 flex mb-4 relative" v-for="(creator, index) in creators" :key="index">
                                 <img v-if="creator.image != null" :src="creator.image" alt="" class="rounded-full w-28 h-28 block creator-img self-center">
                                 <img v-else src="../../assets/icons/unknown.svg" alt="" class="rounded-full w-28 h-28 block creator-img self-center">
                                 <div class="ml-8 flex w-9/12 flex-col justify-between">
