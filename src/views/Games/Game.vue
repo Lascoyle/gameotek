@@ -7,7 +7,7 @@
         <div class="currentgame-overview w-full md:flex justify-between">
             <article class="currentgame-description-container w-10/12 p-20">
             <router-link :to="{ name: 'GameAdd', params: {id: game.id}}" class="add-game-link text-4xl font-extrabold float-right text-purple-600 bg-gray-100 border-4 border-purple-300 rounded-full pb-4 pt-4 px-7 hover:text-white hover:bg-purple-900 hover:border-purple-600 transition duration-500 ease-in-out" v-if="loggedIn">+</router-link>
-                <h2 class="currentgame-description-title leading-snug mb-10 text-red-900 ">{{ game.name }}</h2>
+                <h2 class="currentgame-description-title leading-snug mb-10 text-purple-900 ">{{ game.name }}</h2>
                 <div class="flex justify-end items-center mb-8">
                     <img src="../../assets/icons/calendar.png" alt="calendar icon" class="w-6 h-6 block mr-2">
                     <div class="text-xl text-purple-900 font-medium ">Released on {{ formatDate(game.released) }}</div>
