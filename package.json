@@ -7,7 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@tailwindcss/postcss7-compat": "^2.2.9",
+    "@tailwindcss/postcss7-compat": "^2.2.10",
     "autoprefixer": "^10",
     "axios": "^0.21.1",
     "core-js": "^3.17.2",
