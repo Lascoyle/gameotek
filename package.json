@@ -9,7 +9,7 @@
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.2.9",
     "autoprefixer": "^10",
-    "axios": "^0.21.1",
+    "axios": "^0.26.0",
     "core-js": "^3.17.2",
     "firebase": "^9.0.1",
     "moment": "^2.29.1",
