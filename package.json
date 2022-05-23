@@ -24,7 +24,7 @@
     "@vue/cli-plugin-router": "~4.5.13",
     "@vue/cli-plugin-vuex": "~4.5.13",
     "@vue/cli-service": "~4.5.13",
-    "@vue/compiler-sfc": "^3.2.31",
+    "@vue/compiler-sfc": "^3.2.36",
     "autoprefixer": "^10.4.4",
     "vue-cli-plugin-tailwind": "~2.0.6"
   }
